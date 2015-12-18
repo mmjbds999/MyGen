@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.hy.tools.annotaion.AListObj;
 import com.hy.tools.annotaion.AModelName;
 import com.hy.tools.annotaion.ASearchObj;
@@ -187,7 +189,7 @@ public class GenJsp {
 		copyInclude(TemplatePath.js, "js");
 		copyInclude(TemplatePath.header, "header");
 		copyInclude(TemplatePath.footer, "footer");
-		copyInclude(TemplatePath.left, "left");
+//		copyInclude(TemplatePath.left, "left");
 		copyInclude(TemplatePath.pager, "pager");
 		genJS(TemplatePath.commonjs, "base");
 	}
@@ -208,6 +210,31 @@ public class GenJsp {
 			}
 		}else{
 			StringUtil.write(System.getProperty("user.dir")+GenFilePath.includeFolder+pageName+".jsp", result);
+		}
+	}
+	
+	/**
+	 * 生成左侧菜单
+	 */
+	private static void genLeft(List<String> clazzs){
+		try{
+			JSONArray ja = new JSONArray();
+			if(clazzs!=null&&clazzs.size()>0){
+				for (String clazzName : clazzs) {
+					Class<?> clazz = Class.forName(clazzName);
+					JSONObject jo = new JSONObject();
+					jo.put("modelName", clazz.getAnnotation(AModelName.class).pageName());
+					jo.put("modelNameCN", clazz.getAnnotation(AModelName.class).modelName());
+					ja.add(jo);
+				}
+			}
+			String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.left);
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("modelList", ja);
+			String result = FreemarkerUtil.getTemplate(template, data);
+			StringUtil.write(genPath+jspPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -394,6 +421,7 @@ public class GenJsp {
 					Class<?> clazz = Class.forName(clazzName);
 					genList(clazz);
 				}
+				genLeft(clazzs);
 			}
 			copyInclude();
 			System.out.println("生成完成！");
