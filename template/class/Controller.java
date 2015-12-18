@@ -20,12 +20,9 @@ import ${packageNameForm}.forms.${cPage}Form;
 import ${packageNameForm}.service.${cPage}Service;
 import ${packageNameForm}.entity.${cPage};
 import ${packageNameForm}.vo.${cPage}Vo;
-<#if showList??>
-<#list showList as s>
+<#if addList??>
+<#list addList as s>
 	<#if (s.saveType=="select" || s.saveType=="radio")>
-
-
-
 import ${packageName}.enums.${s.enumName};
 	</#if>
 	<#if (s.saveType=="selectvo" || s.saveType=="checkboxvo")>
@@ -59,8 +56,8 @@ public class ${cPage}Controller extends BaseAction {
     @Autowired 
     private ${cPage}Service ${pageName}Service;
     
-    <#if showList??>
-	<#list showList as s>
+    <#if addList??>
+	<#list addList as s>
 		<#if (s.saveType=="selectvo" || s.saveType=="checkboxvo")>
 	@Autowired
 	private ${s.voTableB}Service ${s.voTable}Service;
@@ -136,7 +133,7 @@ public class ${cPage}Controller extends BaseAction {
 		if(StringUtils.isNotEmpty(ck)){
 			String[] cks = ck.split(",");
 			for (String c : cks) {
-				${s.voTableB} ${s.voTable} = ${s.voTable}Service.findByIdPO(jo.getInteger("${s.voTable}id"));
+				${s.voTableB} ${s.voTable} = ${s.voTable}Service.findByIdPO(Integer.parseInt(c));
 			    ck_vo += ${s.voTable}.get${s.voFieldNameB}()+",";
 			}
 			if(ck_vo.length()>0){

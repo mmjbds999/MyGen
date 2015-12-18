@@ -427,57 +427,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript">
   	jQuery(document).ready(function(){
   		
-  		<#if pageType=="all" || pageType=="edit">
-  	  	/** 编辑--内容填充 */
-  	  	function getEditData(id){
-  	  		var url = "${pageName }/view";
-  	  		$.post(url, {"id":id}, function(d) {
-  	  				$("#form")[0].reset();
-  	  				$("#h_id").val(d.id);
-  	  				<#if addList??>
-  	                <#list addList as add>
-  	                	<#if add.saveType=="textarea" || add.saveType=="textedit">
-  					if(d.${add.name } || d.${add.name }>-1){
-  	  					$("#${add.name }").html(d.${add.name });
-  	  				}
-  						<#elseif add.saveType=="radio" || add.saveType=="background" || add.saveType=="checkbox" || add.saveType=="checkboxvo">
-  					if(d.${add.name } || d.${add.name }>-1){
-  						if(d.${add.name }.length>1&&d.${add.name }.indexOf(",")!=-1){
-  							$.each(d.${add.name }.split(","),function(i, item){
-  								$("#form #${add.name }-"+item+"[value="+item+"]").attr("checked",true);
-  			    		  	});
-  						}else{
-  							$("#form input[name='${add.name }'][value="+d.${add.name }+"]").attr("checked",true);
-  						}
-  					}
-  						<#elseif add.saveType=="img" || add.saveType=="file">
-  					if(d.${add.name } || d.${add.name }>-1){
-  						$("#${add.name }").attr("data-default-file",d.${add.name });
-  						$("#${add.name }").parent().find(".dropify-preview").attr("style","display:block;");
-  						var fName = d.${add.name }.substring(d.${add.name }.lastIndexOf("/")+1);
-  						$("#${add.name }").parent().find(".dropify-filename-inner").html(fName);
-  						$("#${add.name }").parent().find(".dropify-render").html("<img src='"+d.${add.name }+"'>");
-  					}
-  						<#elseif add.typeName?index_of(".entity")!=-1>
-  					if(d.${add.name } || d.${add.name }>-1){
-  	  					$("#${add.name }").val(d.${add.name }.id);
-  	  				}
-  	                	<#else>
-  					if(d.${add.name } || d.${add.name }>-1){
-  	  					$("#${add.name }").val(d.${add.name });
-  	  				}
-  	                	</#if>
-  	                </#list>
-  	                </#if>
-  					$("#addTab").attr("class", "active");
-  					$("#listTab").attr("class", "");
-  					$("#listApp").attr("class", "tab-pane fade");
-  					$("#newApp").attr("class", "tab-pane fade in active");
-  	  		}, "json");
-  	  	}
-  	  	</#if>
-  		
-  		
   		<#if pageType=="edit">
   		$.post("${pageName }/all", {}, function(d) {
   			if(d.length>0){
@@ -698,6 +647,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		}, "json");
   	}
   	</#if>
+  	
+  	<#if pageType=="all" || pageType=="edit">
+	  	/** 编辑--内容填充 */
+	  	function getEditData(id){
+	  		var url = "${pageName }/view";
+	  		$.post(url, {"id":id}, function(d) {
+	  				$("#form")[0].reset();
+	  				$("#h_id").val(d.id);
+	  				<#if addList??>
+	                <#list addList as add>
+	                	<#if add.saveType=="textarea" || add.saveType=="textedit">
+					if(d.${add.name } || d.${add.name }>-1){
+	  					$("#${add.name }").html(d.${add.name });
+	  				}
+						<#elseif add.saveType=="radio" || add.saveType=="background" || add.saveType=="checkbox" || add.saveType=="checkboxvo">
+					if(d.${add.name } || d.${add.name }>-1){
+						if(d.${add.name }.length>1&&d.${add.name }.indexOf(",")!=-1){
+							$.each(d.${add.name }.split(","),function(i, item){
+								$("#form #${add.name }-"+item+"[value="+item+"]").attr("checked",true);
+			    		  	});
+						}else{
+							$("#form input[name='${add.name }'][value="+d.${add.name }+"]").attr("checked",true);
+						}
+					}
+						<#elseif add.saveType=="img" || add.saveType=="file">
+					if(d.${add.name } || d.${add.name }>-1){
+						$("#${add.name }").attr("data-default-file",d.${add.name });
+						$("#${add.name }").parent().find(".dropify-preview").attr("style","display:block;");
+						var fName = d.${add.name }.substring(d.${add.name }.lastIndexOf("/")+1);
+						$("#${add.name }").parent().find(".dropify-filename-inner").html(fName);
+						$("#${add.name }").parent().find(".dropify-render").html("<img src='"+d.${add.name }+"'>");
+					}
+						<#elseif add.typeName?index_of(".entity")!=-1>
+					if(d.${add.name } || d.${add.name }>-1){
+	  					$("#${add.name }").val(d.${add.name }.id);
+	  				}
+	                	<#else>
+					if(d.${add.name } || d.${add.name }>-1){
+	  					$("#${add.name }").val(d.${add.name });
+	  				}
+	                	</#if>
+	                </#list>
+	                </#if>
+					$("#addTab").attr("class", "active");
+					$("#listTab").attr("class", "");
+					$("#listApp").attr("class", "tab-pane fade");
+					$("#newApp").attr("class", "tab-pane fade in active");
+	  		}, "json");
+	  	}
+	  	</#if>
 
   </script>
 </html>
