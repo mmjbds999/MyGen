@@ -65,14 +65,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="portlet box blue-hoki">
 							<div class="portlet-title">
 								<ul class="nav nav-tabs">
+									<#if pageType=="all" || pageType=="list" || pageType=="list_no">
 									<li class="active" id="listTab"><a href="#listApp" data-toggle="tab">列表管理</a></li>
-									<li id="addTab"><a href="#newApp" data-toggle="tab" onclick="addReset();">新建</a></li>
+									</#if>
+									<#if pageType=="all" || pageType=="edit">
+									<li id="addTab"><a href="#newApp" data-toggle="tab" <#if pageType=="all">onclick="addReset();</#if>"><#if pageType=="edit">${modName }<#else>新建</#if></a></li>
+									</#if>
 								</ul>
 							</div>
 							<div class="portlet-body">
 								<div class="tab-content">
+									<#if pageType=="all" || pageType=="edit">
 									<!-- BEGIN 新建应用-->
-									<div class="tab-pane fade" id="newApp">
+									<div class="tab-pane fade<#if pageType=="edit"> in active</#if>" id="newApp">
 										<form action="${pageName}/save" method="post" id="form" enctype="multipart/form-data"
 	                                          class="form-horizontal form-bordered account-detail-list"
 	                                          novalidate="novalidate">
@@ -194,15 +199,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                                <button type="submit" class="btn btn-primary">
 	                                                    <i class="fa fa-angle-right"></i> 提交
 	                                                </button>
+	                                                <#if pageType=="all">
 	                                                <button type="button" class="btn btn-default"
 	                                                        onclick="backListTab()">
 	                                                    <i class="fa fa-arrow-left"></i> 返回${modName }
 	                                                </button>
+	                                                </#if>
 	                                            </div>
 	                                        </div>
 	                                    </form>
 									</div>
 									<!-- END 新建应用-->
+									</#if>
+									<#if pageType=="all" || pageType=="list" || pageType=="list_no">
 									<!-- BEGIN 列表管理-->
 									<div class="tab-pane fade in active" id="listApp">
 										<form action="${pageName }/list" method="post" id="listSearchForm">
@@ -292,7 +301,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	<td>
 																		<div class="btn-group">
 																			<button class="btn btn-info btn-sm" data-target="#modal-adInfo-detail" data-toggle="modal" type="button" onclick="showView(@@@var.id@@)">查看 </button>
+						                                                    <#if pageType=="all" || pageType=="list">
+						                                                    <#if pageType=="all">
 						                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="getEditData(@@@var.id@@)">修改</a>
+						                                                    </#if>
 						                                                    <a href="#modal-app-delete" class="btn btn-sm btn-danger" data-toggle="modal" onclick="setDelId(@@@var.id@@)">删除</a>
 						                                                    <#if addList??>
 																		  	<#list addList as add>
@@ -300,6 +312,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						                                                    <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="${add.name}(@@@var.id@@,@@@var.${add.name}@@)"><c:if test="@@@var.${add.name}==1 @@">取消</c:if>${add.optionName}</a>
 					                                                    		</#if>
 					                                                    	</#list>
+					                                                    	</#if>
 					                                                    	</#if>
 					                                                    </div>
 																	</td>
@@ -318,6 +331,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</div>
 									</div>
 									<!-- END 列表管理-->
+									</#if>
 								</div>
 							</div>
 						</div>
@@ -376,6 +390,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<!-- END 详情modal-->
+	<#if pageType=="all" || pageType=="list">
 	<!-- BEGIN 删除modal -->
 	<div id="modal-app-delete" class="modal hny-delete-modal fade"
 		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -402,6 +417,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<!-- END 删除modal-->
+	</#if>
 
 	<jsp:include page="includes/footer.jsp"/>
   </body>
@@ -411,17 +427,79 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script type="text/javascript">
   	jQuery(document).ready(function(){
   		
+  		<#if pageType=="all" || pageType=="edit">
+  	  	/** 编辑--内容填充 */
+  	  	function getEditData(id){
+  	  		var url = "${pageName }/view";
+  	  		$.post(url, {"id":id}, function(d) {
+  	  				$("#form")[0].reset();
+  	  				$("#h_id").val(d.id);
+  	  				<#if addList??>
+  	                <#list addList as add>
+  	                	<#if add.saveType=="textarea" || add.saveType=="textedit">
+  					if(d.${add.name } || d.${add.name }>-1){
+  	  					$("#${add.name }").html(d.${add.name });
+  	  				}
+  						<#elseif add.saveType=="radio" || add.saveType=="background" || add.saveType=="checkbox" || add.saveType=="checkboxvo">
+  					if(d.${add.name } || d.${add.name }>-1){
+  						if(d.${add.name }.length>1&&d.${add.name }.indexOf(",")!=-1){
+  							$.each(d.${add.name }.split(","),function(i, item){
+  								$("#form #${add.name }-"+item+"[value="+item+"]").attr("checked",true);
+  			    		  	});
+  						}else{
+  							$("#form input[name='${add.name }'][value="+d.${add.name }+"]").attr("checked",true);
+  						}
+  					}
+  						<#elseif add.saveType=="img" || add.saveType=="file">
+  					if(d.${add.name } || d.${add.name }>-1){
+  						$("#${add.name }").attr("data-default-file",d.${add.name });
+  						$("#${add.name }").parent().find(".dropify-preview").attr("style","display:block;");
+  						var fName = d.${add.name }.substring(d.${add.name }.lastIndexOf("/")+1);
+  						$("#${add.name }").parent().find(".dropify-filename-inner").html(fName);
+  						$("#${add.name }").parent().find(".dropify-render").html("<img src='"+d.${add.name }+"'>");
+  					}
+  						<#elseif add.typeName?index_of(".entity")!=-1>
+  					if(d.${add.name } || d.${add.name }>-1){
+  	  					$("#${add.name }").val(d.${add.name }.id);
+  	  				}
+  	                	<#else>
+  					if(d.${add.name } || d.${add.name }>-1){
+  	  					$("#${add.name }").val(d.${add.name });
+  	  				}
+  	                	</#if>
+  	                </#list>
+  	                </#if>
+  					$("#addTab").attr("class", "active");
+  					$("#listTab").attr("class", "");
+  					$("#listApp").attr("class", "tab-pane fade");
+  					$("#newApp").attr("class", "tab-pane fade in active");
+  	  		}, "json");
+  	  	}
+  	  	</#if>
+  		
+  		
+  		<#if pageType=="edit">
+  		$.post("${pageName }/all", {}, function(d) {
+  			if(d.length>0){
+  				getEditData(d[0].id);
+  			}
+  		},"json");
+  		</#if>
+  		
+  		<#if pageType=="all" || pageType=="list" || pageType=="list_no">
   		/**
   		 * 列表查询重置
   		 */
   		$("#resetbtn").click(function(){
   			window.location.href = "${pageName }/list?reset=1";
   		});
+  		</#if>
   		
 		//控制左侧导航栏激活状态
 		var leftNavVal = $("#leftNav").val();
 		$("#" + leftNavVal).attr("class", "active");
 
+		<#if pageType=="all" || pageType=="edit">
   		<#if addList??>
   		//初始化单文件上传控件
   		<#list addList as add>
@@ -437,12 +515,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		</#if>
 	    </#list>
 	    </#if>
+	    </#if>
 
 		//初始化日期控件
 		$(".datepicker").datepicker().on('changeDate', function () {
 			$(".datepicker").datepicker('hide');
 		});
 		
+		<#if pageType=="all" || pageType=="list" || pageType=="list_no">
 		<#if searchList??>
 		<#list searchList as search>
 		<#if search.showType == "date">
@@ -457,7 +537,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</#if>
 		</#list>
 	    </#if>
+	    </#if>
 		
+	    <#if pageType=="all" || pageType=="edit">
 		<#if addList??>
   		<#list addList as add>
   		<#if add.saveType=="textedit">
@@ -477,7 +559,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </#if>
 	    </#list>
 	    </#if>
+	    </#if>
 
+	    <#if pageType=="all" || pageType=="edit">
 		<#if addList??>
 	    <#list addList as add>
 	    	<#if add.saveType=="selectvo">
@@ -555,8 +639,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			}
 		});
+		</#if>
   	});
 
+  	<#if pageType=="all" || pageType=="list">
   	<#if addList??>
   	<#list addList as add>
 		<#if add.optionName!="">
@@ -575,7 +661,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	</#if>
     </#list>
     </#if>
+    </#if>
 
+    <#if pageType=="all" || pageType=="list" || pageType=="list_no">
   	/** 查看--暂时用的是添加的项来迭代，有需要的时候再换 */
   	function showView(id){
   		var url = "${pageName }/view";
@@ -609,54 +697,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </#if>
   		}, "json");
   	}
-
-  	/** 编辑--内容填充 */
-  	function getEditData(id){
-  		var url = "${pageName }/view";
-  		$.post(url, {"id":id}, function(d) {
-  				$("#form")[0].reset();
-  				$("#h_id").val(d.id);
-  				<#if addList??>
-                <#list addList as add>
-                	<#if add.saveType=="textarea" || add.saveType=="textedit">
-				if(d.${add.name } || d.${add.name }>-1){
-  					$("#${add.name }").html(d.${add.name });
-  				}
-					<#elseif add.saveType=="radio" || add.saveType=="background" || add.saveType=="checkbox" || add.saveType=="checkboxvo">
-				if(d.${add.name } || d.${add.name }>-1){
-					if(d.${add.name }.length>1&&d.${add.name }.indexOf(",")!=-1){
-						$.each(d.${add.name }.split(","),function(i, item){
-							$("#form #${add.name }-"+item+"[value="+item+"]").attr("checked",true);
-		    		  	});
-					}else{
-						$("#form input[name='${add.name }'][value="+d.${add.name }+"]").attr("checked",true);
-					}
-				}
-					<#elseif add.saveType=="img" || add.saveType=="file">
-				if(d.${add.name } || d.${add.name }>-1){
-					$("#${add.name }").attr("data-default-file",d.${add.name });
-					$("#${add.name }").parent().find(".dropify-preview").attr("style","display:block;");
-					var fName = d.${add.name }.substring(d.${add.name }.lastIndexOf("/")+1);
-					$("#${add.name }").parent().find(".dropify-filename-inner").html(fName);
-					$("#${add.name }").parent().find(".dropify-render").html("<img src='"+d.${add.name }+"'>");
-				}
-					<#elseif add.typeName?index_of(".entity")!=-1>
-				if(d.${add.name } || d.${add.name }>-1){
-  					$("#${add.name }").val(d.${add.name }.id);
-  				}
-                	<#else>
-				if(d.${add.name } || d.${add.name }>-1){
-  					$("#${add.name }").val(d.${add.name });
-  				}
-                	</#if>
-                </#list>
-                </#if>
-				$("#addTab").attr("class", "active");
-				$("#listTab").attr("class", "");
-				$("#listApp").attr("class", "tab-pane fade");
-				$("#newApp").attr("class", "tab-pane fade in active");
-  		}, "json");
-  	}
+  	</#if>
 
   </script>
 </html>

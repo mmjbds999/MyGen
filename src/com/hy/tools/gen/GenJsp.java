@@ -59,13 +59,16 @@ public class GenJsp {
 
 		String modelName = "";
 		String pageName = "x";
+		String pageType = "";
 		if(clazz.isAnnotationPresent(AModelName.class)){
 			modelName = clazz.getAnnotation(AModelName.class).modelName();
 			pageName = clazz.getAnnotation(AModelName.class).pageName();
+			pageType = clazz.getAnnotation(AModelName.class).pageType().getName();
 
 			data.put("modNameCN", GenConfig.projectNameCN);//项目中文名
-			data.put("modName", modelName+"列表");
+			data.put("modName", modelName);
 			data.put("pageName", pageName);
+			data.put("pageType", pageType);
 
 			Field[] fields = clazz.getDeclaredFields();
 			List<Column> searchList = new ArrayList<Column>();

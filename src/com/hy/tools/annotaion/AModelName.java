@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.hy.tools.enums.PageType;
+
 /**
  * <pre>
  * 管理模块名称
@@ -20,6 +22,8 @@ public @interface AModelName {
 	public abstract String modelName();
 	
 	public abstract String pageName();
+	
+	public abstract PageType pageType() default PageType.ALL;
 	
 	public abstract boolean useParam() default false;
 	
