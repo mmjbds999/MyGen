@@ -1,0 +1,375 @@
+@charset "UTF-8";
+/* CSS Document */
+.apDiv1 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 18px;
+	height: 20px;
+	z-index: 1;
+	left: 256px;
+	top: 616px;
+}
+.apDiv2 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 19px;
+	height: 20px;
+	z-index: 2;
+	left: 108px;
+	top: 616px;
+}
+.apDiv3 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 130px;
+	height: 20px;
+	z-index: 3;
+	left: 80px;
+	top: 314px;
+}
+.apDiv4 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 38px;
+	height: 20px;
+	z-index: 1;
+	left: 532px;
+	top: 616px;
+}
+.apDiv5 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 37px;
+	height: 20px;
+	z-index: 2;
+	left: 28px;
+	top: 616px;
+}
+.apDiv6 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 19px;
+	height: 20px;
+	z-index: 3;
+	left: 577px;
+	top: 616px;
+}.apDiv7 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 139px;
+	height: 20px;
+	z-index: 1;
+	left: 235px;
+	top: 589px;
+}
+.apDiv8 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 17px;
+	height: 20px;
+	z-index: 2;
+	left: 757px;
+	top: 616px;
+}
+.apDiv9 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 24px;
+	height: 20px;
+	z-index: 3;
+	left: 256px;
+	top: 337px;
+}.apDiv10 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 25px;
+	height: 20px;
+	z-index: 1;
+	left: 570px;
+	top: 332px;
+}
+.apDiv11 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 76px;
+	height: 20px;
+	z-index: 2;
+	left: 736px;
+	top: 589px;
+}
+.apDiv12 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 24px;
+	height: 20px;
+	z-index: 3;
+	left: 290px;
+	top: 337px;
+}.apDiv13 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 23px;
+	height: 20px;
+	z-index: 1;
+	left: 75px;
+	top: 616px;
+}
+.apDiv14 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 123px;
+	height: 20px;
+	z-index: 2;
+	left: 580px;
+	top: 314px;
+}
+.apDiv15 {
+	position: absolute;
+	font-size: 10px;
+	width: 38px;
+	height: 20px;
+	z-index: 3;
+	left: 709px;
+	top: 616px;
+}.apDiv16 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 45px;
+	height: 20px;
+	z-index: 1;
+	left: 525px;
+	top: 332px;
+}
+.apDiv17 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 24px;
+	height: 20px;
+	z-index: 2;
+	left: 783px;
+	top: 331px;
+}
+.apDiv18 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 24px;
+	height: 20px;
+	z-index: 3;
+	left: 288px;
+	top: 616px;
+}
+.apDiv19 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 67px;
+	height: 20px;
+	z-index: 1;
+	left: 577px;
+	top: 589px;
+}
+.apDiv20 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 36px;
+	height: 20px;
+	z-index: 2;
+	left: 210;
+	top: 616px;
+}
+.apDiv21 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 23px;
+	height: 20px;
+	z-index: 3;
+	left: 107px;
+	top: 337px;
+}
+.apDiv22 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 131px;
+	height: 20px;
+	z-index: 1;
+	left: 732px;
+	top: 314px;
+}
+.apDiv23 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 40px;
+	height: 20px;
+	z-index: 2;
+	left: 28px;
+	top: 337px;
+}
+.apDiv24 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 385px;
+	height: 200px;
+	z-index: 3;
+	left: 28px;
+	top: 381px;
+}.apDiv25 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 130px;
+	height: 20px;
+	z-index: 1;
+	left: 240px;
+	top: 314px;
+}
+.apDiv26 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 18px;
+	height: 20px;
+	z-index: 2;
+	left: 790px;
+	top: 616px;
+}
+.apDiv27 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 385px;
+	height: 199px;
+	z-index: 3;
+	left: 520px;
+	top: 101px;
+}.apDiv28 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 23px;
+	height: 20px;
+	z-index: 1;
+	left: 609px;
+	top: 616px;
+}
+.apDiv29 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 21px;
+	height: 20px;
+	z-index: 2;
+	left: 75px;
+	top: 337px;
+}
+.apDiv30 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 117px;
+	height: 20px;
+	z-index: 3;
+	left: 80;
+	top: 589px;
+}.apDiv31 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 24px;
+	height: 20px;
+	z-index: 1;
+	left: 750px;
+	top: 331px;
+}
+.apDiv32 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 26px;
+	height: 20px;
+	z-index: 2;
+	left: 605px;
+	top: 332px;
+}
+.apDiv33 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 42px;
+	height: 20px;
+	z-index: 3;
+	left: 705px;
+	top: 331px;
+}.apDiv34 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 385;
+	height: 200px;
+	z-index: 1;
+	left: 520px;
+	top: 381px;
+}
+.apDiv35 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	font-style: normal;
+	width: 383px;
+	height: 200px;
+	z-index: 2;
+	left: 28px;
+	top: 101px;
+}
+.apDiv36 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 46px;
+	height: 20px;
+	z-index: 3;
+	left: 209px;
+	top: 337px;
+}
+.apDiv37 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 45px;
+	height: 20px;
+	z-index: 2;
+	left: 160px;
+	top: 93px;
+}
+.apDiv38 {
+	position: absolute;
+	font-size: 10px;
+	font-family : 微软雅黑,"Microsoft Yahei",宋体;
+	width: 122px;
+	height: 20px;
+	z-index: 3;
+	left: 259px;
+	top: 95px;
+	-webkit-text-size-adjust: none;
+}

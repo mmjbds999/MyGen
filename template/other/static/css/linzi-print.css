@@ -1,0 +1,21 @@
+
+/* 打印时只打印勾选中的复件 */
+@media print {
+	.print_hidden_cls {
+		display: none;
+	}
+	.print_show_cls {
+		display: block;
+	}
+	.print_attach_cls {
+		display: none;
+	}
+	/* 抵押业务他项权利证明书样式 */
+	.mtg_reg_tax_table td{
+		padding: 15px 10px;
+	}
+	/* 抵押业务云南省林权抵押物登记申请书样式 */
+	#print_mtg_reg_requ td{
+		padding: 18px 10px;
+	}
+}

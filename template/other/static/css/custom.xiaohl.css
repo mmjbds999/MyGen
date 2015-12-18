@@ -1,0 +1,191 @@
+.content_box{
+    margin:10px auto 80px;
+}
+.form-wizard .active .step .number,.form-wizard .done .step .number,.btn.blue{
+    background-color: #45B6AF;
+}
+.btn.blue:hover{
+    background-color: #45B6AF !important;
+}
+.portlet.box.blue{
+    border: 1px solid #e7e8eb;
+}
+.form-wizard .done .step i{
+    color: #44b549;
+}
+.mywizard{
+    cursor: default;
+}
+.myclass{
+    font-size: 14px;
+}
+.myimg{
+    color: #459ae9;
+    margin-right: 5px;
+}
+.form-horizontal .controls:first-child{
+    margin-left: 135px;
+}
+@media(max-width:480px){
+    .form-horizontal .controls:first-child{
+        margin-left: 0px;
+    }
+}
+.margintop10{
+    margin-top: 10px;
+}
+
+.form-horizontal .control-group{
+    margin-bottom: 35px;
+}
+.emailimg{
+    float: left;
+    color: #459ae9;
+}
+.emailtext{
+    float: left;
+    margin-left: 15px;
+}
+.emailtext span{
+    padding-left: 0px;
+}
+.emailbtn{
+    margin-top: 15px;
+}
+.emailreturn{
+    margin-top: 50px;
+}
+.emailreturn label{
+	cursor: auto;
+}
+.inforegister{
+    width: 85%;
+    margin: 20px auto;
+}
+.infocolumn{
+    margin-bottom: 25px;
+}
+.infocolumn .typecheckbox{
+    height: 30px;
+}
+.infocheckbox{
+    float: left;
+    margin-right: 50px;
+}
+.typecheckbox{
+    height: 30px;
+    margin-left: 120px;
+    margin-top: 20px;
+}
+.typedesc{
+    margin-left: 120px;
+}
+.propertyfield{
+    height: auto;
+    margin-bottom: 10px;
+}
+.propertyfield.error, .propertyfield .help-inline{
+	color: #b94a48;
+}
+.propertyfield.error input{
+	border-color: #b94a48;
+}
+.propertyfield.success .help-inline{
+	color: #468847;
+}
+.propertyName{
+	line-height:30px;
+    float: left;
+    max-width: 140px;
+}
+.uploadimg{
+    margin-top: 20px;
+}
+.editinfobtn{
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+.confirmAmount{
+    margin-top: 30px;
+}
+.confirmAmount label{
+    margin-bottom: 15px;
+}
+.confirmAmountdiv{
+    margin-left: 73px
+}
+.certificateimg_box{
+    margin: 25px auto 10px;
+    width: 98.5%;
+}
+.certificateimg_left{
+    max-width: 100px;
+    float: left;
+    margin-right: 20px;
+}
+.uploadimg_box{
+    margin-left: 150px;
+}
+.certificateimg_box ul{
+    margin-left: 0px;
+    margin-top: 20px;
+    max-width: 90%;
+}
+.certificateimg_box ul li{
+    float: left;
+    margin-right: 20px;
+    list-style: none;
+    margin-bottom: 15px;
+    position: relative;
+}
+.certificateimg_box ul li img{
+    width: 140px;
+    height: 160px;
+}
+.certificateimg_box ul li:last-child{
+    float: none;
+}
+.negotiate_box{
+    margin: 30px auto 20px;
+    width: 98.5%;
+}
+.addnegotiate{
+    margin-top: 65px;
+    margin-left: 80px;
+}
+.addnegotiate_pact{
+    margin-top: 5px;
+    margin-left: 80px;
+}
+.mytextarea{
+    margin-top: 5px;
+	font-size: 12px;
+}
+.contract_box{
+    margin-bottom: 30px;
+    margin-top: 40px;
+}
+.input_box{
+    border: 1px solid #fff;
+    border-top: 0;
+    margin-top: -25px;
+    margin-bottom: 25px;
+    height: auto;
+    padding: 10px;
+    background-color: #fff;
+}
+.shengwx_type{
+    margin-left: 15px;
+}
+.removeicon{
+    color: red;
+    position: absolute;
+    right: 0px;
+}
+.waiyeform_caozuo{
+    margin: 50px 75px 0;
+}
+.details_renwu{
+    margin: 20px 0 10px 10px;
+}

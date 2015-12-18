@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 用于配置一些非自己开发的bean -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://cxf.apache.org/jaxws 
+    http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- Spring 发送邮件的帮助类 -->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">60000</prop>
+				<prop key="mail.smtp.starttls.enable">false</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.DefaultSocketFactory</prop>
+				<prop key="mail.smtp.socketFactory.fallback">false</prop> 
+			</props>
+		</property>
+	</bean>
+ 	
+	<!-- Spring 发送邮件的帮助类 , ssl链接方式-->
+	<bean id="javaMailSenderSsl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">60000</prop>
+				<prop key="mail.smtp.starttls.enable">false</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.socketFactory.fallback">false</prop> 
+			</props>
+		</property>
+	</bean>
+
+	<!-- 注意下面的address，这里的address的名称就是访问的WebService的name -->
+	<!-- <jaxws:server id="userService"
+		serviceClass="com.ztesoft.fbu.appServer.service.webserver.IComplexUserService"
+		address="/Users">
+		<jaxws:serviceBean>
+			要暴露的 bean 的引用
+			<ref bean="userServiceBean" />
+		</jaxws:serviceBean>
+	</jaxws:server> -->
+	
+<!--  线程池模板
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5"></property>
+		<property name="maxPoolSize" value="10"></property>
+		<property name="queueCapacity" value="25"></property>
+	</bean>
+	<bean id="socketThreadPool" class="com.ztesoft.fbu.appServer.service.SocketThreadPool" init-method="createServers">
+		<constructor-arg ref="taskExecutor"></constructor-arg>
+	</bean>
+	-->
+
+<!--  RMI的服务器端样板  
+	<bean id="rmiService" class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="backendRmiImpl" />
+		<property name="registryPort" value="${backend.rmi.port}" />
+		<property name="serviceName" value="rmiService" />
+		<property name="serviceInterface" value="com.aiwent.senatry.backend.IBackendRmi" />
+	</bean>
+	
+	
+	客户端端样板 rmi://127.0.0.1:8833/rmiService
+	<bean id="rmiService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceInterface" value="com.aiwent.senatry.backend.IBackendRmi" />
+		<property name="serviceUrl" value="${rmi.path}" />
+		<property name="refreshStubOnConnectFailure" value="true" />
+		<property name="lookupStubOnStartup" value="false" />
+		<property name="cacheStub" value="true"/>
+	</bean>
+	
+-->	
+
+</beans>

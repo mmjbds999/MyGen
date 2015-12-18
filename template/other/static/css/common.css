@@ -1,0 +1,95 @@
+/*app icon wrap*/
+.app-icon-wrap {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 5px !important;
+}
+
+.app-icon-wrap img{
+    width: 30px;
+}
+
+.app-icon-wrap.green1 {
+    background: #90c868;
+}
+
+.app-icon-wrap.blue1 {
+    background: #58b0e0;
+}
+
+.app-icon-wrap.yellow1 {
+    background: #f8c850;
+}
+
+
+.app-icon-wrap.red1 {
+    background: #f86060;
+}
+
+.app-icon-wrap.pink1 {
+    background: #ff7888;
+}
+
+.app-icon-wrap.purple1 {
+    background: #bd6ba7;
+}
+
+.app-sorting-inputText {
+    width:150px;
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:5px;
+}
+
+.ad-pic-wrap {
+    width: 300px;
+}
+
+.titleholder {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.titleholder {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.modal-footer {
+    text-align: center;
+}
+
+.modal .modal-body {
+    max-height: 450px;
+    overflow-y: auto;
+}
+.row{
+    margin-bottom: 15px;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+select[multiple], select[size] {
+    height: 34px;
+}
+
+.col-xs-2 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 5px;
+    padding-left: 15px;
+}
+.col-xs-2 {
+    width: 15%;
+}

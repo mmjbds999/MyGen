@@ -1,0 +1,124 @@
+body{
+    font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+    color: #222;
+    font-size: 14px;
+    min-width: 1024px;
+    background: #e7e8eb;
+}
+.help-inline,.help_desc{
+    color: #8d8d8d;
+}
+.error_hint{
+    color: #e15f63;
+    font-size: 14px;
+    margin-top: 8px;
+}
+.head_box_register{
+    position: relative;
+    background-color: #fff;
+    border-top: 4px solid #44b549;
+    border-bottom: 1px solid #d9dadc;
+    height: 60px;
+}
+.head_logo_register{
+    margin: 0px auto;
+    font-size: 24px;
+    margin-top: 8px;
+}
+.borderbottomcolor{
+    border-bottom: 1px solid #ECECEC;
+}
+.bordertopcolor{
+    border-top: 1px solid #ECECEC;
+}
+
+/** 详情页右侧导航区 **/
+.details_content{
+    width: 76%;
+    float: left;
+}
+.tabs-left>.init_guide{
+    max-width: 100px;
+    float: right;
+}
+.tabs-left.tabbable-custom .nav-tabs > li.active{
+    border-left: 0px solid #d12610;
+    border-right: 3px solid #d12610;
+}
+.navposition{
+    position: fixed;
+    top:75px;
+    right: 20px;
+    left: inherit;
+}
+@media(min-width:1200px){
+    .details_content{
+        width: 76%;
+    }
+}
+@media(max-width:1024px){
+    .details_content{
+        width: 68%;
+    }
+    .tabs-left>.navposition{
+        right: 2px;
+    }
+    .row-fluid .span11 {
+        width: 88%;
+    }
+}
+
+
+/* 时光轴 */
+.time_axis{
+    float: left;
+    padding: 20px 10px;
+}
+.time_axis ul li:last-child div div{
+    display: none;
+}
+.time_axis ul{
+    list-style: none outside none;
+    margin: 0px;
+}
+.time_axis ul li {
+    zoom: 1;
+    float: left;
+    margin-top: -4px;
+}
+.time_axis ul li h3 {
+    font-size: 14px;
+    color: #878787;
+    display: block;
+    line-height: 20px;
+}
+.time_axis ul li h3 span {
+    display: block;
+    color: #ADADAD;
+    font-size: 12px;
+    padding-left:15px;
+}
+.time_axis ul li dl {
+    float: left;
+    -webkit-margin-after: 0px;
+    -webkit-margin-before: 0px;
+}
+.liucheng{
+    float: left;
+    max-width: 53px;
+}
+.timeline{
+    width: 5px;
+    height: 75px;
+    background-color: #35aa47;
+    margin-left: 24px;
+    margin-top: -5px;
+}
+.completed{
+    color: #35aa47;
+    background-color: #35aa47;
+}
+.unfinished{
+    color: #eee;
+    background-color: #eee;
+}

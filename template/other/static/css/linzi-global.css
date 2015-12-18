@@ -1,0 +1,275 @@
+body{
+    font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+    color: #333333;
+    font-size: 14px;
+    min-width: 1200px;
+    background: #e7e8eb;
+}
+.help-inline,.help_desc{
+    color: #8d8d8d;
+}
+.error_hint{
+    color: #e15f63;
+    font-size: 14px;
+    margin-top: 8px;
+}
+.head_box_register{
+    position: relative;
+    background-color: #fff;
+    border-top: 4px solid #44b549;
+    border-bottom: 1px solid #d9dadc;
+    height: 60px;
+}
+.head_logo_register{
+    margin: 0px auto;
+    font-size: 24px;
+    margin-top: 8px;
+}
+.borderbottomcolor{
+    border-bottom: 1px solid #ECECEC;
+}
+.bordertopcolor{
+    border-top: 1px solid #ECECEC;
+}
+/** BEGIN 头部功能导航栏 **/
+.fixed-top .page-container{
+	margin-top: 60px;
+}
+.header .custom_header{
+	height: 60px;
+	background-image: none;
+	background-color: white;
+	-webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.3);
+}
+
+/** 后台的名字  */ 
+.header .custom_header .ht_name{
+	color: #22ac38;
+	text-shadow:2px 2px 2px #333;
+	font-size: 24px;
+	padding: 0px 10px;
+	float: left;
+	line-height: 60px;
+	margin-right: 50px;
+}
+
+/** logo */ 
+.header .custom_header .logo{
+	display: block;
+	float: left;
+	width: 50px;
+	height: 50px;
+	margin-top: 5px;
+	background: url(../img/logo.png);
+}
+
+.header .custom_header .badge {
+	position: absolute;
+	font-size: 11px !important;
+	font-weight: 300;
+	top: 8px;
+	left:0px;
+	text-align: center;
+	height: 14px;
+	background-color: #e02222;
+	padding: 2px 6px 2px 6px;
+	-webkit-border-radius: 12px !important;
+	-moz-border-radius: 12px !important;
+	border-radius: 12px !important;
+	text-shadow: none !important;
+	z-index: 10000;
+	display: block;
+	width: 14px;
+}
+
+/** 页头每个A的基础 */
+.custom_header .nav > li > a,
+.custom_header .nav > li.dropdown > a.dropdown-toggle{
+	padding: 20px;
+	color: #555;
+}
+
+/** 激活的菜单，包括鼠标在上面的样式 */
+.custom_header .nav > li > a.active,
+.custom_header .nav > li > a.active:hover,
+.custom_header .nav > li.dropdown.active > a.dropdown-toggle,
+.custom_header .nav > li.dropdown.active.open > a.dropdown-toggle {
+	background-color: #2D6B62;
+	color: #fff;
+}
+
+.custom_header .nav > li > a:hover,
+.custom_header .nav > li > a:focus,
+.custom_header .nav > li.dropdown > a.active
+{
+	background-color: #e5e5e5;
+	color: #333;
+}
+.custom_header .dropdown-menu li>a{
+	padding: 10px 0px 9px 10px;
+	font-size: 12px;
+}
+.custom_header .dropdown-menu .divider{
+	margin: 0px;
+}
+/** END 头部功能导航栏 **/
+
+/** 详情页右侧导航区 **/
+.details_content{
+    width: 76%;
+    float: left;
+}
+.tabs-left>.init_guide{
+    max-width: 100px;
+    float: right;
+}
+.tabs-left.tabbable-custom .nav-tabs > li.active{
+    border-left: 0px solid #d12610;
+    border-right: 3px solid #d12610;
+}
+.navposition{
+    position: fixed;
+    top:175px;
+    right: 20px;
+    left: inherit;
+}
+@media(min-width:1200px){
+    .details_content{
+        width: 76%;
+    }
+}
+@media(max-width:1024px){
+    .details_content{
+        width: 68%;
+    }
+    .tabs-left>.navposition{
+        right: 2px;
+    }
+    .row-fluid .span11 {
+        width: 88%;
+    }
+}
+
+
+/* 时光轴 */
+.time_axis{
+    margin-left: 10px;
+	margin-bottom: 15px;
+}
+.time_axis ul li:last-child div div{
+    width: 0px;
+}
+.time_axis ul{
+    list-style: none outside none;
+    margin: 0px;
+}
+.time_axis ul li {
+    float: left;
+    margin-left: -8px;
+}
+.time_axis ul li h3 {
+    font-size: 14px;
+    color: #878787;
+    display: block;
+    line-height: 20px;
+}
+.time_axis ul li h3 span {
+    display: block;
+    color: #ADADAD;
+    font-size: 12px;
+    padding-left:15px;
+}
+.time_axis ul li dl {
+    margin-left: 3px;
+    -webkit-margin-after: 0px;
+    -webkit-margin-before: 0px;
+}
+.liucheng{
+    float: left;
+    max-height: 44px;
+}
+.liucheng_bz{
+	float: left;
+	margin-top: -12.5px;
+	margin-left: -26.5px;
+	font-size: 14px;
+	color: white;
+}
+.timeline{
+    width: 85px;
+    height: 3px;
+    background-color: #35aa47;
+    margin-left: 37px;
+    margin-top: 18px;
+}
+.completed{
+    color: #35aa47;
+    background-color: #35aa47;
+}
+.unfinished{
+    color: #eee;
+    background-color: #eee;
+}
+
+.w200 {
+ width: 200px;
+}
+
+.form-horizontal .control-group {
+	margin-bottom: 5px;
+}
+.form-horizontal hr {
+	margin: 10px;
+}
+
+/* 全局设置margin */
+.linzicenter {
+	margin-left: 100px;
+	margin-right: 100px;
+}
+
+.search_mark {
+	color : #f00;
+}
+
+/* 打印时只打印勾选中的复件 */
+@media print {
+	.print_hidden_cls {
+		display: none;
+	}
+	.print_show_cls {
+		display: block;
+	}
+	.print_attach_cls {
+		display: none;
+	}
+}
+
+/** 设置debug显示样式 */
+.debug_none {
+	position: absolute;
+	display: block;
+	bottom: 0px;
+	right: 1px !important;
+	right: 18px;
+	width: 150px;
+	line-height: 40px;
+	position: fixed;
+	border: 1px solid #fff;
+	text-align: center;
+	border-radius: 10px;
+	display: none;
+}
+
+.debug_p {
+	font-size: 22px;
+	color: red;
+	font-family: "经典圆体繁", "microsoft yahei", "Arial Rounded MT Bold",
+		"Helvetica Rounded", Arial, sans-serif;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px
+		#ff00de, 0 0 70px #ff00de;
+}
+
+.debug_css {
+	display: inline;
+} 

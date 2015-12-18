@@ -1,0 +1,43 @@
+package com.hy.tools.annotaion;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import com.hy.tools.enums.SaveInputType;
+
+/**
+ * <pre>
+ * 列表字段标识
+ * </pre>
+ * 
+ * @author 黄云
+ * 2015年11月11日
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE , ElementType.FIELD })
+public @interface AListObj {
+	
+	public abstract String comment();
+	
+	public abstract int length() default 10;
+	
+	public abstract String option() default "AUSV";//a-add,u-update,-s-select,v-view,c-change(对应审核字段)
+	
+	public abstract String optionName() default "";
+	
+	public abstract SaveInputType cType() default SaveInputType.TEXT;//保存控件类型
+	
+	public abstract SaveInputType vType() default SaveInputType.IMG;//保存控件类型
+	
+	public abstract Class<?> selectEnum() default Object.class;
+	
+	
+	//----------下拉关联数据指向-----------
+	
+	public abstract Class<?> selectVo() default Object.class;
+	
+	public abstract String selectVoName() default "name";
+	
+}
