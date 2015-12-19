@@ -38,7 +38,8 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcherServlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>*.do</url-pattern>
+	<url-pattern>*.json</url-pattern>
   </servlet-mapping>
   <error-page>
     <error-code>404</error-code>

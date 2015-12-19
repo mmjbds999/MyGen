@@ -48,9 +48,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li>
 							<i class="fa fa-home"></i>
 							当前所在位置:
-							<a href="application/list">${modNameCN }</a>
+							<a href="welcome/list.do">${modNameCN }</a>
 							<i class="fa fa-angle-right"></i>
-							<a href="${pageName}/list">${modName }</a>
+							<a href="${pageName}/list.do">${modName }</a>
 						</li>
 					</ul>
 					<div class="page-toolbar">
@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<#if pageType=="all" || pageType=="edit">
 									<!-- BEGIN 新建应用-->
 									<div class="tab-pane fade<#if pageType=="edit"> in active</#if>" id="newApp">
-										<form action="${pageName}/save" method="post" id="form" enctype="multipart/form-data"
+										<form action="${pageName}/save.do" method="post" id="form" enctype="multipart/form-data"
 	                                          class="form-horizontal form-bordered account-detail-list"
 	                                          novalidate="novalidate">
 	                                        <input type="hidden" id="h_id" name="id"/>
@@ -214,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<#if pageType=="all" || pageType=="list" || pageType=="list_no">
 									<!-- BEGIN 列表管理-->
 									<div class="tab-pane fade in active" id="listApp">
-										<form action="${pageName }/list" method="post" id="listSearchForm">
+										<form action="${pageName }/list.do" method="post" id="listSearchForm">
 											<div class="row">
 										<#if searchList??>
 										<#list searchList as search>
@@ -428,7 +428,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	jQuery(document).ready(function(){
   		
   		<#if pageType=="edit">
-  		$.post("${pageName }/all", {}, function(d) {
+  		$.post("${pageName }/all.do", {}, function(d) {
   			if(d.length>0){
   				getEditData(d[0].id);
   			}
@@ -440,7 +440,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		 * 列表查询重置
   		 */
   		$("#resetbtn").click(function(){
-  			window.location.href = "${pageName }/list?reset=1";
+  			window.location.href = "${pageName }/list.do?reset=1";
   		});
   		</#if>
   		
@@ -597,7 +597,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<#if add.optionName!="">
   	/** ${add.optionName} **/
   	function ${add.name}(id, value){
-  		$.post("${pageName }/changeStatus", {"id":id, "option":"${add.name}", "${add.name}":value}, function(d) {
+  		$.post("${pageName }/changeStatus.do", {"id":id, "option":"${add.name}", "${add.name}":value}, function(d) {
   			if (d.code=="200") {
   				var status = value==1?"取消":"";
   				alert(status+"${add.optionName}成功！");
@@ -615,7 +615,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <#if pageType=="all" || pageType=="list" || pageType=="list_no">
   	/** 查看--暂时用的是添加的项来迭代，有需要的时候再换 */
   	function showView(id){
-  		var url = "${pageName }/view";
+  		var url = "${pageName }/view.do";
   		$.post(url, {"id":id}, function(d) {
   				$("#form")[0].reset();
   				<#if addList??>

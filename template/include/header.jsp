@@ -17,13 +17,13 @@
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-quick-sidebar-toggler">
                     <a href="javascript:;">
-                        您好!@@@user.userName@@
+                        您好!@@@user.realname@@
                     </a>
                 </li>
                 <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-quick-sidebar-toggler">
-                    <a href="loginAdmin/loginOut">
+                    <a href="loginAdmin/loginOut.do">
                         <i class="icon-logout"></i>注销
                     </a>
                 </li>

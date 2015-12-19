@@ -28,7 +28,7 @@ function setDelId(id){
 $("#delete").click(function(){
 	var id = $(this).attr("value");
 	var page = $(this).attr("page");
-	var url = page+"/delete";
+	var url = page+"/delete.do";
 	$.post(url, {"id":id}, function(d) {
 		if (d.code=="200") {
 			$("#querybtn").click();

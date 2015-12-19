@@ -68,7 +68,7 @@ public class ${cPage}Controller extends BaseAction {
     /**
      * 获取列表数据
      */
-    @RequestMapping("/list")
+    @RequestMapping("/list.do")
     public ModelAndView list() {
     	${cPage}Form form = BinderUtil.bindForm(request, ${cPage}Form.class, true);
     	ModelAndView mav = new ModelAndView("${pageName}");
@@ -150,7 +150,7 @@ public class ${cPage}Controller extends BaseAction {
     /**
      * 获取列表数据--all
      */
-    @RequestMapping("/all")
+    @RequestMapping("/all.do")
     @ResponseBody
     public String all() {
     	return ${pageName}Service.findAll().toJSONString();
@@ -161,7 +161,7 @@ public class ${cPage}Controller extends BaseAction {
      * @param id
      * @return
      */
-    @RequestMapping("/view")
+    @RequestMapping("/view.do")
     @ResponseBody
     public String view(Integer id) {
         return setVo(${pageName}Service.findById(id)).toString();
@@ -172,7 +172,7 @@ public class ${cPage}Controller extends BaseAction {
      * @param param
      * @return
      */
-    @RequestMapping("/save")
+    @RequestMapping("/save.do")
     public String save(${cPage} param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, MultipartFile ${s.name}_file</#if></#list></#if>, HttpServletResponse resp) {
         <#if addList??>
 		<#list addList as s>
@@ -194,7 +194,7 @@ public class ${cPage}Controller extends BaseAction {
      * @param id
      * @return
      */
-    @RequestMapping("/delete")
+    @RequestMapping("/delete.do")
     @ResponseBody
     public String delete(Integer id){
     	return ${pageName}Service.del(id).toJSONString();
@@ -207,7 +207,7 @@ public class ${cPage}Controller extends BaseAction {
      * @param isAudit
      * @return
      */
-    @RequestMapping("/changeStatus")
+    @RequestMapping("/changeStatus.do")
     @ResponseBody
     public String changeStatus(Integer id, String option<#if addList??><#list addList as add><#if add.optionName!="">, ${add.typeStr} ${add.name}</#if></#list></#if>){
     	${cPage} ${pageName} = ${pageName}Service.findByIdPO(id);

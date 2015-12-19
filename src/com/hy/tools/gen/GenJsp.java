@@ -157,6 +157,9 @@ public class GenJsp {
 		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.pageListForm);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("pageName", pageName);
+		if(pageName.equals("admin")){
+			data.put("isAdmin", true);
+		}
 		String packageName = classPath.replace("\\", ".");
 		packageName = packageName.substring(packageName.indexOf("com."));
 		packageName = packageName.substring(0,packageName.length()-1);
@@ -335,7 +338,7 @@ public class GenJsp {
 				}
 				column.setVoTable(voName);
 				column.setVoTableB(StringUtil.upFirstChar(voName));
-				column.setVoName(voName+"/all");
+				column.setVoName(voName+"/all.do");
 				column.setVoFieldNameB(StringUtil.upFirstChar(field.getAnnotation(AListObj.class).selectVoName()));
 			}
 

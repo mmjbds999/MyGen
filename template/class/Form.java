@@ -2,8 +2,11 @@ package ${packageName}.forms;
 
 <#if searchList??>
 <#list searchList as s>
-<#if s.typeStr=="Date">
 import com.linzi.framework.annotation.ABuildWhereOptStr;
+<#break>
+</#list>
+<#list searchList as s>
+<#if s.typeStr=="Date">
 import com.linzi.framework.annotation.ABuildWhereTimeField;
 <#break>
 </#if>
@@ -16,9 +19,9 @@ import com.linzi.app.appserver.rmi.enums.${s.typeStr};
 </#list>
 </#if>
 
+
 import java.io.Serializable;
 
-import com.linzi.framework.annotation.ABuildWhereOptStr;
 import com.linzi.framework.web.PageDateRangeForm;
 
 /**
@@ -42,6 +45,10 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	private ${s.typeStr} ${s.name};
 	</#if>
 	</#list>
+	</#if>
+	<#if isAdmin??>
+	private String password;
+	private String remember;
 	</#if>
 	
 	<#if searchList??>
@@ -84,4 +91,21 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	</#list>
 	</#if>
 	
+	<#if isAdmin??>
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRemember() {
+		return remember;
+	}
+
+	public void setRemember(String remember) {
+		this.remember = remember;
+	}
+	</#if>
 }
