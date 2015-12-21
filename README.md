@@ -7,7 +7,7 @@
 
 ### 2.修改类文件顶部定义的字段value
 
-```
+```java
     public static String projectName = "Test";//项目名称
 	public static String projectNameCN = "测试下噢";//项目名称--中文
 	public static String dbName = "test";//数据库名称
@@ -25,15 +25,20 @@
 
 ### 2.随便找个地方写个Main方法用以生成项目代码
     总共分三个步骤进行生成
+    
+```java
     第一步：GenEntityForHibernateConf.genAll();//生成实体类，也就是po--依赖数据库
             GenDao.gen();//生成dao--依赖数据库
     第二步：GenVo.genVoList();//生成VO--依赖po
             GenService.genServiceList();//生成service--依赖po
     第三步：GenJsp.genByVo();//生成Action，Form，Jsp--依赖VO
+```
     
 # 调整界面
     因为我们的界面生成很多都是靠默认规则的，不是太准确，所以这里要对VO进行相应的调整
     1.我们生成vo的时候，vo里会生成一些默认的自定义注解，下面说说这些注解的作用
+    
+```java
     @AModelName--对当前vo所描述界面的定义
         字段：modelName//模块名称，用于在界面显示当前模块的名称
         字段：pageName//页面名称，一般对应表名，用于标识URL访问路径
@@ -57,6 +62,7 @@
     @ASearchObj--用于描述列表的查询条件以及form字段
         字段：type//对应SearchInputType枚举，用于描述查询界面字段默认显示的html标签，详细项自己点进去看，不解释，有注释
         字段：selectEnum//同上面一个注解，只是界面对应的是查询条件
+```
         
     好了，看了那么多麻烦的东西，请不要感觉很复杂，因为大部分都生成好了，你只需要微调就好。
     
