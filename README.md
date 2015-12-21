@@ -7,7 +7,7 @@
 
 ### 2.修改类文件顶部定义的字段value
 
-```java
+```
     public static String projectName = "Test";//项目名称
 	public static String projectNameCN = "测试下噢";//项目名称--中文
 	public static String dbName = "test";//数据库名称
