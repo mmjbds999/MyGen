@@ -6,6 +6,8 @@
 ### 1.打开com.hy.tools.main.CreateProject.java
 
 ### 2.修改类文件顶部定义的字段value
+
+```java
     public static String projectName = "Test";//项目名称
 	public static String projectNameCN = "测试下噢";//项目名称--中文
 	public static String dbName = "test";//数据库名称
@@ -14,7 +16,8 @@
 	public static String path = "G:\\\\JavaSave2015\\\\";//需要创建项目的文件夹路径
 	public static String user = "root";//数据库用户
 	public static String pwd = "root";//数据库密码
-	
+```
+
 ### 3.RUN，搞定
 
 # 生成具体代码及页面
@@ -58,5 +61,3 @@
     好了，看了那么多麻烦的东西，请不要感觉很复杂，因为大部分都生成好了，你只需要微调就好。
     
     最后，执行生成代码：GenJsp.genByVo();搞定，收工！
-        
-    
