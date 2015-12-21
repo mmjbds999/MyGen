@@ -1,5 +1,9 @@
 package com.hy.tools.gen;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,9 +29,6 @@ import com.hy.tools.uitl.StringUtil;
  *
  */
 public class GenEntityForHibernateConf {
-	
-	/** HIBERNATE 的数据连接会话 */
-	static Session session;
 	
 	/** 需要操作的table对象 */
 	static Map<String, Table> tables;
@@ -333,34 +334,43 @@ public class GenEntityForHibernateConf {
 	 * 设置表关系
 	 * @author 云
 	 */
-	@SuppressWarnings({ "unchecked" })
 	private static void setConstraint(Table table){
-		if(session==null)
-			session = getSession();
-		String constraintSQL = "";
-		if(dbType.equals(DBType.mysql)){
-			constraintSQL = SQLHelper.CONSTRAINT_MYSQL;
-		}else if(dbType.equals(DBType.oracle)){
-			constraintSQL = SQLHelper.CONSTRAINT_ORACLE;
-		}
-		constraintSQL = constraintSQL.replace("<dbName>", dbName).replace("<tabName>", table.getName());
-		List<Object[]> tblist = session.createSQLQuery(constraintSQL).list();
-		if(tblist!=null&&tblist.size()>0){
-			List<String> many = new ArrayList<String>();
+		try{
+			String constraintSQL = "";
+			if(dbType.equals(DBType.mysql)){
+				constraintSQL = SQLHelper.CONSTRAINT_MYSQL;
+			}else if(dbType.equals(DBType.oracle)){
+				constraintSQL = SQLHelper.CONSTRAINT_ORACLE;
+			}
+			constraintSQL = constraintSQL.replace("<dbName>", dbName).replace("<tabName>", table.getName());
+			
+			Connection conn = null;
+			String url = "jdbc:mysql://localhost:3306/${dbName}?"
+	                + "user=${user}&password=${pwd}&useUnicode=true&characterEncoding=UTF8";
+			Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
+	        // 一个Connection代表一个数据库连接
+	        conn = DriverManager.getConnection(url);
+	        
+	        Statement stmt = conn.createStatement();
+	        ResultSet rs = stmt.executeQuery(constraintSQL);
+	        
+	        List<String> many = new ArrayList<String>();
 			List<String> one = new ArrayList<String>();
-			for (Object[] objects : tblist) {
-				String TABLE_NAME = objects[0]+"";
-				String COLUMN_NAME = objects[1]+"";
-				String REFERENCED_TABLE_NAME = objects[3]+"";
+	        while (rs.next()) {
+				String TABLE_NAME = rs.getString("TABLE_NAME");
+				String COLUMN_NAME = rs.getString("COLUMN_NAME");
+				String REFERENCED_TABLE_NAME = rs.getString("REFERENCED_TABLE_NAME");
 				
 				if(TABLE_NAME.equals(table.getName())){
 					many.add(TABLE_NAME+"@"+REFERENCED_TABLE_NAME+"@"+COLUMN_NAME);//格式：表名|映射表名|映射字段名
 				}else if(REFERENCED_TABLE_NAME.equals(table.getName())){
 					one.add(TABLE_NAME+"@"+REFERENCED_TABLE_NAME);
 				}
-			}
-			table.setMany(many);
+	        }
+	        table.setMany(many);
 			table.setOne(one);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
@@ -370,49 +380,61 @@ public class GenEntityForHibernateConf {
 	 * @param dbType
 	 * @param dbName
 	 */
-	@SuppressWarnings("unchecked")
 	private static void setTable(){
-		if(session==null)
-			session = getSession();
-		String alltable = "";
-		if(dbType.equals(DBType.mysql)){
-			alltable = SQLHelper.ALLTABLE_MYSQL;
-		}else if(dbType.equals(DBType.oracle)){
-			alltable = SQLHelper.ALLTABLE_ORACLE;
-		}
-		alltable = alltable.replace("<dbName>", dbName);
-		List<Object[]> tblist = session.createSQLQuery(alltable).list();
-		tables = new HashMap<String, Table>();
-		for (Object[] objs : tblist) {
-			String columnsql = "";
+		try{
+			String alltable = "";
 			if(dbType.equals(DBType.mysql)){
-				columnsql = SQLHelper.COLUMN_MYSQL;
+				alltable = SQLHelper.ALLTABLE_MYSQL;
 			}else if(dbType.equals(DBType.oracle)){
-				columnsql = SQLHelper.COLUMN_ORACLE;
+				alltable = SQLHelper.ALLTABLE_ORACLE;
 			}
-			columnsql = columnsql.replace("<dbName>", dbName).replace("<tabName>", objs[0]+"");
-			//赋值表对象
-			Table table = new Table();
-			table.setName(objs[0]+"");
-			table.setNotes(objs[1]+"");
+			alltable = alltable.replace("<dbName>", dbName);
 			
-			List<Object[]> list = session.createSQLQuery(columnsql).list();
-			List<Column> lc = new ArrayList<Column>();
-			for (Object[] objects : list) {
-				Column column = new Column();
-				column.setName(objects[0]+"");
-				column.setIsnull(objects[1]+"");
-				column.setType(objects[2]+"");
-				column.setNotes(objects[3]+"");
-				column.setKey(objects[4]+"");
-				column.setPrecision(objects[5]+"");
-				column.setScale(objects[6]+"");
-				lc.add(column);
+			Connection conn = null;
+			String url = "jdbc:mysql://localhost:3306/${dbName}?"
+	                + "user=${user}&password=${pwd}&useUnicode=true&characterEncoding=UTF8";
+			Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
+	        // 一个Connection代表一个数据库连接
+	        conn = DriverManager.getConnection(url);
+	        
+	        Statement stmt = conn.createStatement();
+	        ResultSet rs = stmt.executeQuery(alltable);
+			
+			tables = new HashMap<String, Table>();
+			while (rs.next()) {
+				String columnsql = "";
+				if(dbType.equals(DBType.mysql)){
+					columnsql = SQLHelper.COLUMN_MYSQL;
+				}else if(dbType.equals(DBType.oracle)){
+					columnsql = SQLHelper.COLUMN_ORACLE;
+				}
+				columnsql = columnsql.replace("<dbName>", dbName).replace("<tabName>", rs.getString("table_name"));
+				//赋值表对象
+				Table table = new Table();
+				table.setName(rs.getString("table_name"));
+				table.setNotes(rs.getString("table_comment"));
+				
+				Statement stmt2 = conn.createStatement();
+				ResultSet rs2 = stmt2.executeQuery(columnsql);
+				List<Column> lc = new ArrayList<Column>();
+				while (rs2.next()) {
+					Column column = new Column();
+					column.setName(rs2.getString("column_name"));
+					column.setIsnull(rs2.getString("is_nullable"));
+					column.setType(rs2.getString("column_type"));
+					column.setNotes(rs2.getString("column_comment"));
+					column.setKey(rs2.getString("column_key"));
+					column.setPrecision(rs2.getString("numeric_precision"));
+					column.setScale(rs2.getString("numeric_scale"));
+					lc.add(column);
+				}
+				//设置表关系
+				setConstraint(table);
+				table.setColumns(lc);
+				tables.put(table.getName(), table);
 			}
-			//设置表关系
-			setConstraint(table);
-			table.setColumns(lc);
-			tables.put(table.getName(), table);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	

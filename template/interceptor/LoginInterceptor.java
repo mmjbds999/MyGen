@@ -1,4 +1,4 @@
-package com.hy.test.interceptor;
+package ${packageName}.interceptor;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hy.test.entity.Admin;
+import ${packageName}.entity.Admin;
 
 /**
  * <pre>

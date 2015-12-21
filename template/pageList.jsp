@@ -651,15 +651,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<#if pageType=="all" || pageType=="edit">
 	  	/** 编辑--内容填充 */
 	  	function getEditData(id){
-	  		var url = "${pageName }/view";
+	  		var url = "${pageName }/view.do";
 	  		$.post(url, {"id":id}, function(d) {
 	  				$("#form")[0].reset();
 	  				$("#h_id").val(d.id);
 	  				<#if addList??>
 	                <#list addList as add>
-	                	<#if add.saveType=="textarea" || add.saveType=="textedit">
+	                	<#if add.saveType=="textarea">
 					if(d.${add.name } || d.${add.name }>-1){
 	  					$("#${add.name }").html(d.${add.name });
+	  				}
+						<#elseif add.saveType=="textedit">
+					if(d.${add.name } || d.${add.name }>-1){
+						UM.getEditor("${add.name }").setContent(d.${add.name });
 	  				}
 						<#elseif add.saveType=="radio" || add.saveType=="background" || add.saveType=="checkbox" || add.saveType=="checkboxvo">
 					if(d.${add.name } || d.${add.name }>-1){

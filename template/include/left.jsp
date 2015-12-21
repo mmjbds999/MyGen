@@ -9,7 +9,7 @@
             <#if modelList??>
             <#list modelList as mod>
             <!-- APP用户管理 -->
-            <li id="li-${mod.modelName }" class=""><a href="${mod.modelName }/list"> <i class="icon-user-follow"></i> <span
+            <li id="li-${mod.modelName }" class=""><a href="${mod.modelName }/list.do"> <i class="icon-user-follow"></i> <span
                     class="title">${mod.modelNameCN }</span> <span
                     class="selected"></span> <span class="arrow "></span>
             </a>

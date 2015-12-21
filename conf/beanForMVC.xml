@@ -37,7 +37,7 @@
 
 	<!-- 拦截器 -->
 	<mvc:interceptors>
-		<bean class="com.hy.test.interceptor.LoginInterceptor" ></bean>
+		<bean class="${packageName}.interceptor.LoginInterceptor" ></bean>
 	</mvc:interceptors>
 
 	<!-- 默认的注解映射的支持 -->

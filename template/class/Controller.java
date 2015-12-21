@@ -186,7 +186,7 @@ public class ${cPage}Controller extends BaseAction {
         </#list>
         </#if>
         ${pageName}Service.save(param);
-        return "redirect:/${pageName}/list";
+        return "redirect:/${pageName}/list.do";
     }
     
     /**

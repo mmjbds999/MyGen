@@ -19,7 +19,7 @@ public class CreateProject {
 
 	public static String projectName = "Test";//项目名称
 	
-	public static String projectNameCN = "测试";//项目名称--中文
+	public static String projectNameCN = "test";//项目名称--中文
 	
 	public static String dbName = "mybook";//数据库名称
 	
@@ -91,7 +91,9 @@ public class CreateProject {
 		StringUtil.write(path+projectName+GenFilePath.conf+"beanForDao.xml", template);//写文件到项目路径
 		
 		//beanForMVC.xml
-		StringUtil.copyFile(System.getProperty("user.dir") + TemplatePath.beanForMVC,path+projectName+GenFilePath.conf+"beanForMVC.xml");
+		template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.beanForMVC);
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+GenFilePath.conf+"beanForMVC.xml", template);//写文件到项目路径
 		
 		//beanForService.xml
 		StringUtil.copyFile(System.getProperty("user.dir") + TemplatePath.beanForService,path+projectName+GenFilePath.conf+"beanForService.xml");
@@ -138,6 +140,32 @@ public class CreateProject {
 		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/BaseMainDao.java");
 		template = template.replace("${packageName}", packageName);
 		StringUtil.write(path+projectName+"/src/"+packagePath+"/dao/BaseMainDao.java", template);//写文件到项目路径
+		
+		//----------登录相关---------
+		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/BaseJsonResponse.java");
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+"/src/"+packagePath+"/service/json/BaseJsonResponse.java", template);//写文件到项目路径
+		
+		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/JsonLoginResponse.java");
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+"/src/"+packagePath+"/service/json/JsonLoginResponse.java", template);//写文件到项目路径
+		
+		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/BaseLoginController.java");
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+"/src/"+packagePath+"/controller/BaseLoginController.java", template);//写文件到项目路径
+		
+		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/LoginAdminController.java");
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+"/src/"+packagePath+"/controller/LoginAdminController.java", template);//写文件到项目路径
+		
+		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/LonginService.java");
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+"/src/"+packagePath+"/service/LonginService.java", template);//写文件到项目路径
+		
+		//------------------拦截器------------------
+		template = StringUtil.readFile(System.getProperty("user.dir")+"/template/interceptor/LoginInterceptor.java");
+		template = template.replace("${packageName}", packageName);
+		StringUtil.write(path+projectName+"/src/"+packagePath+"/interceptor/LoginInterceptor.java", template);//写文件到项目路径
 		
 		System.out.println("BaseClass拷贝完毕！");
 	}

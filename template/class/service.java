@@ -46,9 +46,6 @@ public class ${classNameB}Service extends BaseServcie<${classNameB}>{
 		</#if>
 		hql.append(" where ").append(build.getWhereSql());
 		hql.append(" order by ${className}.id desc");
-		if (log.isDebugEnabled()) {
-			log.debug(LogUtil.format("sql:%s", hql.toString()));
-		}
 		return ${className}Dao.findInPage(hql.toString(),build.getParams(), form);
 	}
 	

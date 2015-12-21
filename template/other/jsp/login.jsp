@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +62,7 @@
 	    <div class="content">
 	      <!-- BEGIN LOGIN FORM -->
 	      <form class="login-form" action="login.do" method="post" id="login_form">
-	        <input type="hidden" name="redirectUrl" value="${loginForm.redirectUrl}">
+	        <input type="hidden" name="redirectUrl" value="">
 	        <h3 class="form-title">标题</h3>
 	        <div class="alert alert-error hide" id="error_div">
 		      <span id="error">请输入用户名和密码</span>
@@ -70,19 +71,19 @@
 	          <label class="control-label">用户名:</label>
 	          <div class="input-icon left">
 	            <i class="icon-user"></i>
-	            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="请输入用户名" name="account" value="${loginForm.account}"/>
+	            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="请输入用户名" name="account" value="${admin.account}"/>
 	          </div>
 	        </div>
 	        <div class="form-group">
 	          <label class="control-label">密码</label>
 	          <div class="input-icon left">
 	            <i class="icon-lock"></i>
-	            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="请输入密码" name="password" value="${loginForm.password}"/>
+	            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="请输入密码" name="password" value="${admin.password}"/>
 	          </div>
 	        </div>
 	        <div>
 	           <label class="checkbox">
-	            <input type="checkbox" name="remember" value="1" ${loginForm.remeberCheckedHtml}/>
+	            <input type="checkbox" name="remember" value="1" <c:if test="${admin.remember==1 }">checked</c:if>/>
 	            记住密码 </label>
 	        </div>
 	        <div class="form-actions">

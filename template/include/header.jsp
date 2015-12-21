@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown dropdown-quick-sidebar-toggler">
                     <a href="javascript:;">
-                        您好!@@@user.realname@@
+                        您好!@@@admin.realname@@
                     </a>
                 </li>
                 <!-- BEGIN QUICK SIDEBAR TOGGLER -->

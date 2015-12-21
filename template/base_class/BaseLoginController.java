@@ -1,11 +1,11 @@
-package com.hy.test.controller;
+package ${packageName}.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hy.test.forms.AdminForm;
-import com.hy.test.service.LonginService;
+import ${packageName}.forms.AdminForm;
+import ${packageName}.service.LonginService;
 import com.linzi.framework.utils.StringUtils;
 import com.linzi.framework.web.BinderUtil;
 import com.linzi.framework.web.CookieUtils;

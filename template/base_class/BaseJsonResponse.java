@@ -1,4 +1,4 @@
-package com.hy.test.service.json;
+package ${packageName}.service.json;
 
 import com.alibaba.fastjson.JSON;
 

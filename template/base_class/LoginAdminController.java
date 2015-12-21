@@ -1,4 +1,4 @@
-package com.hy.test.controller;
+package ${packageName}.controller;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.hy.test.service.json.BaseJsonResponse;
+import ${packageName}.service.json.BaseJsonResponse;
 
 /**
  * <pre>
@@ -47,7 +47,7 @@ public class LoginAdminController extends BaseLoginController {
     /**
      * 注销登录
      */
-    @RequestMapping(value = "loginOut")
+    @RequestMapping(value = "loginOut.do")
     public String loginOut() {
         String url;
         url = "redirect:/loginAdmin/index.do";
