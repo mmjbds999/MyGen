@@ -32,6 +32,9 @@ import ${packageName}.service.${s.voTableB}Service;
 </#list>
 </#if>
 
+
+
+
 import com.hy.tools.uitl.PoToJson;
 import com.hy.tools.uitl.StringUtil;
 import com.linzi.framework.db.PageQueryResult;
@@ -174,15 +177,25 @@ public class ${cPage}Controller extends BaseAction {
      */
     @RequestMapping("/save.do")
     public String save(${cPage} param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, MultipartFile ${s.name}_file</#if></#list></#if>, HttpServletResponse resp) {
-        <#if addList??>
+    	<#if addList??>
 		<#list addList as s>
-        <#if s.saveType=="img" || s.saveType=="file">
+    	<#if s.saveType=="img" || s.saveType=="file" || s.saveType=="pwd">
+    	${cPage} po = ${pageName}Service.findByIdPO(param.getId());
+    		<#if s.saveType=="img" || s.saveType=="file">
         String ${s.name}_path = fileUpload(${s.name}_file, resp);
     	if(StringUtil.isEmpty(${s.name}_path)&&param.getId()!=null&&param.getId()>0){
-    		${s.name}_path = ${pageName}Service.findByIdPO(param.getId()).get${s.nameB}();
+    		${s.name}_path = po.get${s.nameB}();
     	}
-        param.set${s.nameB}(${s.name}_path);
-        </#if>
+    	param.set${s.nameB}(${s.name}_path);
+    		<#elseif s.saveType=="pwd">
+		if(param.get${s.nameB}().equals("!@#$%^")&&param.getId()!=null&&param.getId()>0){
+    		String ${s.name} = po.get${s.nameB}();
+			param.set${s.nameB}(${s.name});
+    	}else{
+    		param.set${s.nameB}(EncryptUtil.md5(param.get${s.nameB}()));
+    	}
+    		</#if>
+    	</#if>
         </#list>
         </#if>
         ${pageName}Service.save(param);

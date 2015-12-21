@@ -177,6 +177,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                                data-height="250" data-default-file="" data-max-file-size="200K"/>
 	                                                <!--<span class="help-block">图标大小为60x60(px),格式为png</span>-->
 	                                            </div>
+	                                            <#elseif add.saveType=="pwd">
+	                                            <div class="col-md-4">
+	                                                <input type="password" id="${add.name }" name="${add.name }" class="form-control"
+	                                                       placeholder="" maxlength="${add.length }"> <span
+	                                                    class="help-block">${add.length }个字符以内</span>
+	                                            </div>
 	                                            <#elseif add.typeName?index_of(".entity")!=-1>
 	                                        	<div class="col-md-4">
 	                                                <input type="text" id="${add.name }" name="${add.name }.id" class="form-control"
@@ -682,6 +688,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						var fName = d.${add.name }.substring(d.${add.name }.lastIndexOf("/")+1);
 						$("#${add.name }").parent().find(".dropify-filename-inner").html(fName);
 						$("#${add.name }").parent().find(".dropify-render").html("<img src='"+d.${add.name }+"'>");
+					}
+						<#elseif add.saveType=="pwd">
+					if(d.${add.name } || d.${add.name }>-1){
+						$("#${add.name }").val("!@#$%^");
 					}
 						<#elseif add.typeName?index_of(".entity")!=-1>
 					if(d.${add.name } || d.${add.name }>-1){
