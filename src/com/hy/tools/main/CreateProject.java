@@ -17,15 +17,15 @@ import com.hy.tools.uitl.StringUtil;
  */
 public class CreateProject {
 
-	public static String projectName = "Test";//项目名称
+	public static String projectName = "MyBook";//项目名称
 	
-	public static String projectNameCN = "test";//项目名称--中文
+	public static String projectNameCN = "大锅的书店";//项目名称--中文
 	
 	public static String dbName = "mybook";//数据库名称
 	
-	public static String packageName = "com.hy.test";//包名称
+	public static String packageName = "com.hy.mybook";//包名称
 	
-	public static String packagePath = "com\\\\hy\\\\test";//包路径
+	public static String packagePath = "com\\\\hy\\\\mybook";//包路径
 	
 	public static String path = "G:\\\\JavaSave2015\\\\";//需要创建项目的文件夹路径
 	

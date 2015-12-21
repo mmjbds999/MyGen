@@ -33,6 +33,8 @@ public class GenEntityForHibernateConf {
 	/** 需要操作的table对象 */
 	static Map<String, Table> tables;
 	
+	static boolean isoverwrite=true;
+	
 	/**
 	 * 数据库类型枚举
 	 * @author 云
@@ -100,11 +102,20 @@ public class GenEntityForHibernateConf {
         return sessionFactory.openSession(); 
     } 
 	
-    /**
+	/**
      * 根据数据库名生成所有实体
      * @author 云
      */
 	public static void genAll(){
+		genAll(isoverwrite);
+	}
+	
+    /**
+     * 根据数据库名生成所有实体
+     * @author 云
+     */
+	public static void genAll(boolean overwrite){
+		isoverwrite = overwrite;
 		if(tables==null)
 			setTable();
 		for (String key : tables.keySet()) {
@@ -121,6 +132,16 @@ public class GenEntityForHibernateConf {
 	 * @param tabName 表名
 	 */
 	public static void genEnt(String tabName){
+		genEnt(tabName, isoverwrite);
+	}
+	
+	/**
+	 * 根据库名及表名生成单个实体
+	 * @author 云
+	 * @param tabName 表名
+	 */
+	public static void genEnt(String tabName, boolean overwrite){
+		isoverwrite = overwrite;
 		if(tables==null)
 			setTable();
 		if(tabName!=null&&!"".equals(tabName)&&!"null".equals(tabName)){
@@ -321,8 +342,14 @@ public class GenEntityForHibernateConf {
 							.replace("<package>", schemaname.replace("\\", "."))
 							.replace("<other_import>", other_import)
 							.replace("<COL>", "").replace("</COL>", "");
-					StringUtil.write(System.getProperty("user.dir")+"\\src\\com\\" + schemaname
-							+ "\\entity\\" + StringUtil.upFirstChar(table.getName()) + ".java", entityTemp);
+					
+					if(isoverwrite){
+						StringUtil.write(System.getProperty("user.dir")+"\\src\\com\\" + schemaname
+								+ "\\entity\\" + StringUtil.upFirstChar(table.getName()) + ".java", entityTemp);
+					}else{
+						StringUtil.write(System.getProperty("user.dir")+"\\gen"
+								+ "\\entity\\" + StringUtil.upFirstChar(table.getName()) + ".java", entityTemp);
+					}
 					
 				}
 			}

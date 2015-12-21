@@ -241,6 +241,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<input id="${search.name }_e" name="${search.name }_e" title="${search.comment }--结束"
 													class="form-control datepicker" data-provide="datepicker" data-date-format="yyyy-mm-dd" type="text" placeholder="${search.comment }--结束">
 											</div>
+											<#elseif search.voField!="">
+											<div class="col-xs-2">
+												<input id="${search.name }_search" class="form-control" type="text" value="@@@form.${search.name }_${search.voField } @@"
+													placeholder="${search.comment }" name="${search.name }_${search.voField }" title="${search.comment }">
+											</div>
 											<#else>
 											<div class="col-xs-2">
 												<input id="${search.name }_search" class="form-control" type="text" value="@@@form.${search.name } @@"

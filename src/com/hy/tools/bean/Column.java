@@ -28,6 +28,7 @@ public class Column {
 	
 	/** 列表相关 */
 	private String showType;//页面展示类型
+	private String voField;//页面展示类型
 	private List<Integer> codes;//下拉选项code数组
 	private List<String> names;//下拉选项name数组
 	
@@ -203,6 +204,12 @@ public class Column {
 	}
 	public void setParam(String param) {
 		this.param = param;
+	}
+	public String getVoField() {
+		return voField;
+	}
+	public void setVoField(String voField) {
+		this.voField = voField;
 	}
 	
 }

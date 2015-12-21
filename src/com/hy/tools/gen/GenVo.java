@@ -37,10 +37,20 @@ public class GenVo {
 	
 	public static String packageName = "${packageName}";
 	
+	static boolean isoverwrite=true;
+	
 	/**
 	 * 生成一堆VO
 	 */
 	public static void genVoList(){
+		genVoList(isoverwrite);
+	}
+	
+	/**
+	 * 生成一堆VO
+	 */
+	public static void genVoList(boolean overwrite){
+		isoverwrite = overwrite;
 		String path = "${packageName}.entity";
 		try {
 			List<String> clazzs = PackageUtil.getClassName(path);
@@ -61,6 +71,15 @@ public class GenVo {
 	 * @param clazz
 	 */
 	public static void genVo(Class<?> clazz){
+		genVo(clazz ,isoverwrite);
+	}
+	
+	/**
+	 * 生成一个VO
+	 * @param clazz
+	 */
+	public static void genVo(Class<?> clazz, boolean overwrite){
+		isoverwrite = overwrite;
 		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.vo);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("className", clazz.getSimpleName());
@@ -117,7 +136,11 @@ public class GenVo {
 		data.put("package", packagePath);
 		data.put("packageName", packageName);
 		String result = FreemarkerUtil.getTemplate(template, data);
-		StringUtil.write(System.getProperty("user.dir")+voPath+clazz.getSimpleName()+"Vo.java", result);
+		if(isoverwrite){
+			StringUtil.write(System.getProperty("user.dir")+voPath+clazz.getSimpleName()+"Vo.java", result);
+		}else{
+			StringUtil.write(System.getProperty("user.dir")+"\\gen\\vo\\"+clazz.getSimpleName()+"Vo.java", result);
+		}
 	}
 	
 	/**

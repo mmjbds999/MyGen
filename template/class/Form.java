@@ -2,6 +2,7 @@ package ${packageName}.forms;
 
 <#if searchList??>
 <#list searchList as s>
+import com.linzi.framework.annotation.ABuildWhereFieldName;
 import com.linzi.framework.annotation.ABuildWhereOptStr;
 <#break>
 </#list>
@@ -41,6 +42,8 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	<#if s.typeStr=="Date">
 	private String ${s.name}_s;
 	private String ${s.name}_e;
+	<#elseif s.voField!="">
+	private String ${s.name}_${s.voField};
 	<#else>
 	private ${s.typeStr} ${s.name};
 	</#if>
@@ -70,6 +73,16 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 
 	public void set${s.nameB}_e(String ${s.name}_e) {
 		this.${s.name}_e = ${s.name}_e;
+	}
+	<#elseif s.voField!="">
+	@ABuildWhereOptStr(optStr="like")
+	@ABuildWhereFieldName(name="${s.name}.${s.voField}")
+	public String get${s.nameB}_${s.voField}() {
+		return ${s.name}_${s.voField};
+	}
+
+	public void set${s.nameB}_${s.voField}(String ${s.name}_${s.voField}) {
+		this.${s.name}_${s.voField} = ${s.name}_${s.voField};
 	}
 	<#else>
 	<#if s.typeStr=='String'>

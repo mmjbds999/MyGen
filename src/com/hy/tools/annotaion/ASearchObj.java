@@ -20,4 +20,5 @@ import com.hy.tools.enums.SearchInputType;
 public @interface ASearchObj {
 	public abstract SearchInputType type() default SearchInputType.TEXT;
 	public abstract Class<?> selectEnum() default Object.class;
+	public abstract String voField() default "";
 }

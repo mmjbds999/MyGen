@@ -24,10 +24,20 @@ public class GenDao {
 
 	public static String daoPath = "\\src\\${packagePath}\\dao\\";
 	
+	static boolean isoverwrite=true;
+	
 	/**
 	 * 生成常用DAO结构
 	 */
 	public static void gen(){
+		gen(isoverwrite);
+	}
+	
+	/**
+	 * 生成常用DAO结构
+	 */
+	public static void gen(boolean overwrite){
+		isoverwrite = overwrite;
 		try{
 			String database = "${dbName}";
 			String pkg = "${packageName}";
@@ -63,7 +73,12 @@ public class GenDao {
 				data.put("tableName_s", tableName_s);
 				data.put("now", TimeUtil.getNowTime("yyyy-MM-dd"));
 				String result = FreemarkerUtil.getTemplate(temp, data);
-				StringUtil.write(System.getProperty("user.dir")+daoPath+tableName_R+"Dao.java", result);
+				if(isoverwrite){
+					StringUtil.write(System.getProperty("user.dir")+daoPath+tableName_R+"Dao.java", result);
+				}else{
+					StringUtil.write(System.getProperty("user.dir")+"\\gen"
+							+ "\\dao\\" + tableName_R+"Dao.java", result);
+				}
 			}
 	        System.out.println("生成完毕！");
 		}catch(Exception e){

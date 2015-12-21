@@ -28,10 +28,20 @@ public class GenService {
 	
 	public static String packagePath = "${packageName}";
 	
+	static boolean isoverwrite=true;
+	
 	/**
 	 * 生成一堆Service
 	 */
 	public static void genServiceList(){
+		genServiceList(isoverwrite);
+	}
+	
+	/**
+	 * 生成一堆Service
+	 */
+	public static void genServiceList(boolean overwrite){
+		isoverwrite = overwrite;
 		String path = "${packageName}.entity";
 		try {
 			List<String> clazzs = PackageUtil.getClassName(path);
@@ -52,6 +62,15 @@ public class GenService {
 	 * @param clazz
 	 */
 	public static void genService(Class<?> clazz){
+		genService(clazz, isoverwrite);
+	}
+	
+	/**
+	 * 生成一个service
+	 * @param clazz
+	 */
+	public static void genService(Class<?> clazz, boolean overwrite){
+		isoverwrite = overwrite;
 		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.service);
 		Map<String, Object> data = new HashMap<String, Object>();
 		String className = StringUtil.lowFirstChar(clazz.getSimpleName());
@@ -65,14 +84,18 @@ public class GenService {
 		for (Method method : methods) {
 			if(method.isAnnotationPresent(ManyToOne.class)){
 				String joinmodel = method.getReturnType().getSimpleName();
-				String sql = " left join "+className+"."+StringUtil.lowFirstChar(joinmodel);
+				String sql = " left join "+className+"."+StringUtil.lowFirstChar(joinmodel)+" as "+StringUtil.lowFirstChar(joinmodel)+" ";
 				sqlList.add(sql);
 			}
 		}
 		data.put("sqlList", sqlList);
 		
 		String result = FreemarkerUtil.getTemplate(template, data);
-		StringUtil.write(System.getProperty("user.dir")+servicePath+clazz.getSimpleName()+"Service.java", result);
+		if(isoverwrite){
+			StringUtil.write(System.getProperty("user.dir")+servicePath+clazz.getSimpleName()+"Service.java", result);
+		}else{
+			StringUtil.write(System.getProperty("user.dir")+"\\gen\\service\\"+clazz.getSimpleName()+"Service.java", result);
+		}
 	}
 	
 	/**

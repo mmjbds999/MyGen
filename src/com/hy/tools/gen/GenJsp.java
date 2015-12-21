@@ -298,6 +298,7 @@ public class GenJsp {
 			//生成search字段
 			if(field.isAnnotationPresent(ASearchObj.class)){
 				column.setShowType(field.getAnnotation(ASearchObj.class).type().getName());
+				column.setVoField(field.getAnnotation(ASearchObj.class).voField());
 				if(field.getAnnotation(ASearchObj.class).type()==SearchInputType.SELECT){
 					Class<?> c = field.getAnnotation(ASearchObj.class).selectEnum();
 					for (Method method : c.getDeclaredMethods()) {
@@ -419,6 +420,15 @@ public class GenJsp {
 	 * @param voPath
 	 */
 	public static void genByVo(){
+		genByVo(genToTruePath);
+	}
+	
+	/**
+	 * 根据vo生成全部页面
+	 * @param voPath
+	 */
+	public static void genByVo(boolean overwrite){
+		genToTruePath = overwrite;
 		String voPath = "${packageName}.vo";
 		try {
 			List<String> clazzs = PackageUtil.getClassName(voPath);

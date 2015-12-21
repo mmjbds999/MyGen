@@ -23,6 +23,7 @@ public enum SaveInputType {
 	SELECTVO(10,"selectvo"),//下拉框--forVo
 	CHECKBOXVO(11,"checkboxvo"),//复选框--forVo
 	TIME(12,"datetime"),//日期控件
+	PWD(13,"pwd"),//密码
 	
 	UNKNOW(-100,"unknow");
 	
