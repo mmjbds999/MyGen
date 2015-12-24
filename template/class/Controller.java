@@ -35,6 +35,8 @@ import ${packageName}.service.${s.voTableB}Service;
 
 
 
+
+import com.hy.mybook.entity.User;
 import com.hy.tools.uitl.PoToJson;
 import com.hy.tools.uitl.StringUtil;
 import com.linzi.framework.db.PageQueryResult;
@@ -86,6 +88,15 @@ public class ${cPage}Controller extends BaseAction {
 			mav.addObject("${pageName}List", setVoList(${pageName}Vo.getORMList(page.getList())));
 		}
         return mav;
+    }
+    
+    /**
+     * 根据PO查询--所有字段都可做查询条件
+     */
+    @RequestMapping("/query.do")
+    @ResponseBody
+    public String query(${cPage} ${pageName}) {
+        return ${pageName}Service.findByPO(${pageName}).toJSONString();
     }
     
     /**

@@ -1,17 +1,21 @@
 package ${packageName}.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.linzi.framework.db.PageQueryResult;
 import com.linzi.framework.utils.LogUtil;
+import com.linzi.framework.utils.StringUtils;
 import com.linzi.framework.db.WhereBuilder;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 import ${packageName}.dao.${classNameB}Dao;
 import ${packageName}.entity.${classNameB};
-import ${packageName}.entity.User;
 import ${packageName}.forms.${classNameB}Form;
 
 /**
@@ -47,6 +51,36 @@ public class ${classNameB}Service extends BaseServcie<${classNameB}>{
 		hql.append(" where ").append(build.getWhereSql());
 		hql.append(" order by ${className}.id desc");
 		return ${className}Dao.findInPage(hql.toString(),build.getParams(), form);
+	}
+	
+	/**
+	 * 根据po查询，所有po字段都可作为查询条件
+	 * @param id
+	 * @return
+	 */
+	public JSONObject findByPO(${classNameB} ${className}){
+		JSONObject jo = po2Json(${className}, false);
+		jo = JSONObject.parseObject(jo.toString());
+		if(jo!=null&&jo.size()>0){
+			StringBuffer sql = new StringBuffer();
+			sql.append("where 1=1 ");
+			List<Object> params = new ArrayList<Object>();
+			for (String key : jo.keySet()) {
+				if(jo.get(key)!=null&&StringUtils.isNotEmpty(jo.get(key).toString())){
+					if(jo.get(key) instanceof String){
+						sql.append("and ").append(key).append(" like ? ");
+						params.add(jo.get(key)+"%");
+					}else{
+						sql.append("and ").append(key).append("=? ");
+						params.add(jo.get(key));
+					}
+				}
+			}
+			JSONArray ja = po2JsonList(${className}Dao.findInPage(String.format("from ${classNameB} %s", sql), params.toArray(), 1, 10).getList(),false);
+			return result(true, "success", ja);
+		}
+		JSONArray ja = po2JsonList(${className}Dao.findInPage("from ${classNameB}", new Object[]{}, 1, 10).getList(),false);
+		return result(true, "success", ja);
 	}
 	
 	/**

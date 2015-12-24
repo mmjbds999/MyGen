@@ -114,6 +114,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                                                <option value="">--请选择--</option>
 	                                                </select>
 	                                            </div>
+	                                            <#elseif add.saveType=="searchvo">
+	                                        	<div class="col-md-4">
+	                                                <input type="text" id="${add.name }_show" class="form-control"
+	                                                       data-toggle="modal" data-target="#${add.name }_mod" readonly="true"
+	                                                       placeholder="查询${add.comment }" maxlength="${add.length }"> <span
+	                                                    class="help-block">${add.length }个字符以内</span>
+	                                                <input type="hidden" id="${add.name }" name="${add.name }.id">
+	                                            </div>
 	                                            <#elseif add.saveType=="checkboxvo">
                                                 <div class="col-md-5" id="ck${add.name }">
 
@@ -429,6 +437,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!-- END 删除modal-->
 	</#if>
+	<#if pageType=="all" || pageType=="edit">
+	<#if addList??>
+	<#list addList as add>
+	<#if add.saveType=="searchvo">
+	<!-- 查询${add.comment }STAR -->
+	<div id="${add.name }_mod" class="modal fade in" aria-hidden="false" role="basic"
+		tabindex="-1" style="display: none; padding-right: 17px;">
+		<div class="modal-backdrop fade in"></div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" aria-hidden="true" data-dismiss="modal"
+						type="button"></button>
+					<h4 class="modal-title">${add.comment }查询</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<span class="input-group-addon"> <i class="fa fa-search"></i> </span> 
+						<input id="${add.voFieldName}_s" class="form-control" type="text" name="${add.name }.${add.voFieldName}" style="width:80%;">
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<div class="btn-group">
+							<a href="javascript:void(0)" class="btn btn-sm btn-primary" id="${add.name }_query" style="height:34px">查&nbsp;&nbsp;询</a>
+						</div>
+					</div>
+					<div class="table-scrollable">
+						<table class="table table-condensed table-hover">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>${add.comment }</th>
+									<th width="50px">操作</th>
+								</tr>
+							</thead>
+							<tbody id="${add.name }_tbody">
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn default" data-dismiss="modal" type="button" id="${add.name }_mod_close">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 查询${add.comment }END -->
+	</#if>
+	</#list>
+	</#if>
+	</#if>
 
 	<jsp:include page="includes/footer.jsp"/>
   </body>
@@ -437,6 +494,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   <script type="text/javascript">
   	jQuery(document).ready(function(){
+  		
+  		<#if pageType=="all" || pageType=="edit">
+  		<#if addList??>
+  		<#list addList as add>
+  		<#if add.saveType=="searchvo">
+  		//查询选择${add.comment }
+  		$("#${add.name}_query").click(function(){
+  			$.post("${add.name}/query.do",{"${add.voFieldName}":$("#${add.voFieldName}_s").val()},function(d){
+  				if(d.success){
+  					if(d.data && d.data.length>0){
+  						var html = "";
+  	  					$(d.data).each(function(x,obj){
+  	   					   html += '<tr><td>'+obj.id+'</td>'+
+  	 							   '<td>'+obj.${add.voFieldName}+'</td>'+
+  	 							   '<td>'+
+  	 								   '<div class="btn-group">'+
+  	 								  	   '<a href="javascript:$(\'#${add.name}\').val('+obj.id+');$(\'#${add.name}_show\').val(\''+obj.${add.voFieldName}+'\');$(\'#${add.name}_mod_close\').click();"'+ 
+  	 								  	   ' class="btn btn-sm btn-primary" >选择</a>'+
+  	 								   '</div>'+
+  	 							   '</td></tr>';
+  	   	  					
+  		   				});
+  		   				$("#${add.name}_tbody").html(html);
+  					}else{
+  						alert("没有查询到相关数据！");
+  					}
+  				}else{
+  					alert("查询出错，请联系程序猿哥哥！");
+  				}
+  			},"json");
+  		});
+  		</#if>
+  		</#list>
+  		</#if>
+  		</#if>
   		
   		<#if pageType=="edit">
   		$.post("${pageName }/all.do", {}, function(d) {
@@ -563,9 +655,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    <#list addList as add>
 			    	<#if !add.isHidden>
 				${add.name} : {
+					<#if add.valids??>
 					<#list add.valids as v>
 					${v} : <#if v=="equalTo">"#${add.param}"<#else>true</#if><#if v_index!=add.valids?size-1>,</#if>
 					</#list>
+					</#if>
 				},
 		    		</#if>
 			    </#list>
@@ -628,7 +722,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	function showView(id){
   		var url = "${pageName }/view.do";
   		$.post(url, {"id":id}, function(d) {
-  				$("#form")[0].reset();
   				<#if addList??>
                 <#list addList as add>
                 	<#if add.saveType=="img">
@@ -698,6 +791,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					if(d.${add.name } || d.${add.name }>-1){
 						$("#${add.name }").val("!@#$%^");
 					}
+						<#elseif add.saveType=="searchvo">
+					if(d.${add.name } || d.${add.name }>-1){
+	  					$("#${add.name }").val(d.${add.name }.id);
+	  					$("#${add.name }_show").val(d.${add.name }.${add.voFieldName});
+	  				}
 						<#elseif add.typeName?index_of(".entity")!=-1>
 					if(d.${add.name } || d.${add.name }>-1){
 	  					$("#${add.name }").val(d.${add.name }.id);
