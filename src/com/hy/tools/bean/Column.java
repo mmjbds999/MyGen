@@ -22,6 +22,10 @@ public class Column {
 	private String typeName;
 	private String optionName;
 	
+	/** one2many */
+	private String qname;//many端查询字段
+	private boolean userbtn;//是否需要关联按钮
+	
 	/** valid相关 */
 	private List<String> valids;//需要验证的东东
 	private String param;//需要验证的东东--暂时只为eq提供参数，其他需要的话再说
@@ -210,6 +214,18 @@ public class Column {
 	}
 	public void setVoField(String voField) {
 		this.voField = voField;
+	}
+	public String getQname() {
+		return qname;
+	}
+	public void setQname(String qname) {
+		this.qname = qname;
+	}
+	public boolean userbtn() {
+		return userbtn;
+	}
+	public void setUserbtn(boolean userbtn) {
+		this.userbtn = userbtn;
 	}
 	
 }

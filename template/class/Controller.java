@@ -36,6 +36,8 @@ import ${packageName}.service.${s.voTableB}Service;
 
 
 
+
+
 import com.hy.mybook.entity.User;
 import com.hy.tools.uitl.PoToJson;
 import com.hy.tools.uitl.StringUtil;
@@ -75,11 +77,17 @@ public class ${cPage}Controller extends BaseAction {
      * 获取列表数据
      */
     @RequestMapping("/list.do")
-    public ModelAndView list() {
+    public ModelAndView list(String parentName, String parentComm) {
     	${cPage}Form form = BinderUtil.bindForm(request, ${cPage}Form.class, true);
     	ModelAndView mav = new ModelAndView("${pageName}");
         PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
         page.setActionUrl("${pageName}/list");
+        mav.addObject("parentName", parentName);
+        try {
+			mav.addObject("parentComm", new String(parentComm.getBytes("iso-8859-1"),"UTF-8"));
+		} catch (Exception e) {
+			logger.trace("error", e);
+		}
         mav.addObject("page", page);
 		mav.addObject("form", form);
 		if (page != null) {

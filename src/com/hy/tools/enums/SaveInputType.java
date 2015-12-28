@@ -25,6 +25,7 @@ public enum SaveInputType {
 	TIME(12,"datetime"),//日期控件
 	PWD(13,"pwd"),//密码
 	SEARCHVO(14,"searchvo"),//数据查询
+	ONE2MANY(15,"one2many"),//数据查询
 	
 	UNKNOW(-100,"unknow");
 	

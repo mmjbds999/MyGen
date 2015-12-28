@@ -1,8 +1,8 @@
 package ${packageName}.forms;
 
+import com.linzi.framework.annotation.ABuildWhereFieldName;
 <#if searchList??>
 <#list searchList as s>
-import com.linzi.framework.annotation.ABuildWhereFieldName;
 import com.linzi.framework.annotation.ABuildWhereOptStr;
 <#break>
 </#list>
@@ -49,6 +49,13 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	</#if>
 	</#list>
 	</#if>
+	<#if addList??>
+	<#list addList as add>
+	<#if add.type?contains(".entity.")>
+	private Integer ${add.name}_id;
+	</#if>
+	</#list>
+	</#if>
 	<#if isAdmin??>
 	private String password;
 	private String remember;
@@ -90,7 +97,7 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	</#if>
 	public ${s.typeStr} get${s.nameB}() {
 		<#if s.showType=='select'>
-		if(${s.name}==-1){
+		if(${s.name}!=null&&${s.name}==-1){
 			return null;
 		}
 		</#if>
@@ -99,6 +106,21 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 
 	public void set${s.nameB}(${s.typeStr} ${s.name}) {
 		this.${s.name} = ${s.name};
+	}
+	</#if>
+	</#list>
+	</#if>
+	
+	<#if addList??>
+	<#list addList as add>
+	<#if add.type?contains(".entity.")>
+	@ABuildWhereFieldName(name="${add.name}.id")
+	public Integer get${add.nameB}_id() {
+		return ${add.name}_id;
+	}
+
+	public void set${add.nameB}_id(Integer ${add.name}_id) {
+		this.${add.name}_id = ${add.name}_id;
 	}
 	</#if>
 	</#list>

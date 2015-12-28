@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -130,6 +131,18 @@ public class GenVo {
 				
 				voList.add(column);
 			}
+			if(method.isAnnotationPresent(OneToMany.class)){
+				com.hy.tools.bean.Column column = new com.hy.tools.bean.Column();
+				column.setNameB(method.getName().substring(3));
+				column.setName(StringUtil.lowFirstChar(method.getName().substring(3)));
+				column.setTypeStr(method.getReturnType().getSimpleName());
+				column.setLength(9);
+				column.setVoName(method.getReturnType().getSimpleName());
+				
+				column.setSaveType(SaveInputType.ONE2MANY.getName());
+				
+				voList.add(column);
+			}
 		}
 		data.put("voList", voList);
 		data.put("nowDate", TimeUtil.getNowTime());
@@ -212,7 +225,7 @@ public class GenVo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		genVoList();
+		genVoList(false);
 	}
 	
 }

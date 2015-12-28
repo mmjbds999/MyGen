@@ -239,7 +239,7 @@ public class GenEntityForHibernateConf {
 										other_import += "import java.util.Date;\r\n";
 										other_import += "import org.springframework.format.annotation.DateTimeFormat;\r\n";
 									}
-									fmt = "@DateTimeFormat(pattern = \"yyyy-MM-dd\")";
+									fmt = "\r\n\t@DateTimeFormat(pattern = \"yyyy-MM-dd\")";
 								}
 								if(StringUtil.isNotEmpty(length))
 									column_attr.append("length=").append(length);

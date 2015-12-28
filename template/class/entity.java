@@ -22,8 +22,7 @@ public class <table> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	<COL>
-	/** <column_notes> */
-	<fmt>
+	/** <column_notes> */<fmt>
 	private <column_type> <column_name>;
 	</COL>
 	

@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hy.tools.annotaion.AListObj;
 import com.hy.tools.annotaion.AModelName;
+import com.hy.tools.annotaion.AOne2Many;
 import com.hy.tools.annotaion.ASearchObj;
 import com.hy.tools.annotaion.AValid;
 import com.hy.tools.bean.Column;
@@ -99,7 +100,7 @@ public class GenJsp {
 			data.put("showList", showList);
 
 			genClass(pageName, showList, addList);//生成Action
-			genForms(pageName, searchList);//生成Form
+			genForms(pageName, searchList, addList);//生成Form
 
 			String result = FreemarkerUtil.getTemplate(template, data);
 			result = result.replace("@@@", "${").replace("@@", "}");
@@ -153,7 +154,7 @@ public class GenJsp {
 	 * @param pageName
 	 * @param searchList
 	 */
-	private static void genForms(String pageName, List<Column> searchList){
+	private static void genForms(String pageName, List<Column> searchList, List<Column> addList){
 		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.pageListForm);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("pageName", pageName);
@@ -165,6 +166,7 @@ public class GenJsp {
 		packageName = packageName.substring(0,packageName.length()-1);
 		data.put("packageName", packageName);
 		data.put("searchList", searchList);
+		data.put("addList", addList);
 		String cPage = StringUtil.upFirstChar(pageName);
 		data.put("cPage", cPage);
 		data.put("nowDate", TimeUtil.getNowTime("yyyy-MM-dd"));
@@ -270,20 +272,36 @@ public class GenJsp {
 	 * @return
 	 */
 	private static Column setColumn(Field field){
-		if(field.isAnnotationPresent(AListObj.class)){
-			Column column = new Column();
-			column.setName(field.getName());
-			column.setType(field.getType());
-			column.setTypeStr(field.getType().getSimpleName());
-			column.setTypeName(field.getType().getName());
-			column.setNameB(StringUtil.upFirstChar(field.getName()));
+		Column column = new Column();
+		column.setName(field.getName());
+		column.setType(field.getType());
+		column.setTypeStr(field.getType().getSimpleName());
+		column.setTypeName(field.getType().getName());
+		column.setNameB(StringUtil.upFirstChar(field.getName()));
+		//one2many所需
+		if(field.isAnnotationPresent(AOne2Many.class)){
+			column.setUserbtn(field.getAnnotation(AOne2Many.class).userBtn());
+			column.setQname(field.getAnnotation(AOne2Many.class).manyName());
+			column.setVoName(column.getName().substring(0,column.getName().length()-1));
 
+			column.setSaveType("");
+			column.setOptionName("");
+			
+			return column;
+		}
+		if(field.isAnnotationPresent(AListObj.class)){
 			column.setComment(field.getAnnotation(AListObj.class).comment());
 			column.setLength(field.getAnnotation(AListObj.class).length());
 			column.setSaveType(field.getAnnotation(AListObj.class).cType().getName());
 			column.setViweType(field.getAnnotation(AListObj.class).vType().getName());
 			column.setOptionName(field.getAnnotation(AListObj.class).optionName());
 
+			//one2many所需
+			if(field.isAnnotationPresent(AOne2Many.class)){
+				column.setUserbtn(field.getAnnotation(AOne2Many.class).userBtn());
+				column.setVoName(column.getName().substring(0,column.getName().length()-1));
+			}
+			
 			//jquery验证所需
 			if(field.isAnnotationPresent(AValid.class)){
 				ValidEnum[] enums = field.getAnnotation(AValid.class).valids();

@@ -49,6 +49,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<i class="fa fa-home"></i>
 							当前所在位置:
 							<a href="welcome/list.do">${modNameCN }</a>
+							<c:if test="@@@parentName!=null&&parentName!='' @@">
+							<i class="fa fa-angle-right"></i>
+							<a href="@@@parentName@@/list.do">@@@parentComm @@</a>
+							</c:if>
 							<i class="fa fa-angle-right"></i>
 							<a href="${pageName}/list.do">${modName }</a>
 						</li>
@@ -71,6 +75,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<#if pageType=="all" || pageType=="edit">
 									<li id="addTab"><a href="#newApp" data-toggle="tab" <#if pageType=="all">onclick="addReset();</#if>"><#if pageType=="edit">${modName }<#else>新建</#if></a></li>
 									</#if>
+									<c:if test="@@@parentName!=null&&parentName!='' @@">
+									<li><a href="@@@parentName @@/list.do">返回-@@@parentComm @@</a></li>
+									</c:if>
 								</ul>
 							</div>
 							<div class="portlet-body">
@@ -332,6 +339,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                                                    		</#if>
 					                                                    	</#list>
 					                                                    	</#if>
+					                                                    	</#if>
+					                                                    	<#if addList??>
+																		  	<#list addList as add>
+																				<#if add.userBtn?? && add.userBtn>
+						                                                    <a href="${add.voName }/list.do?${pageName}_id=@@@var.id@@&parentName=${pageName}&parentComm=${modName }" class="btn btn-sm btn-primary" >${add.qname}</a>
+					                                                    		</#if>
+					                                                    	</#list>
 					                                                    	</#if>
 					                                                    </div>
 																	</td>
