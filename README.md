@@ -3,7 +3,7 @@
 
 文档补齐中------
 # 创建项目
-### 1.打开com.hy.tools.main.CreateProject.java
+### 1.打开com.hy.tools.main.CreateProject.java | maven版本为CreateMavenProject.java
 
 ### 2.修改类文件顶部定义的字段value
 
@@ -24,7 +24,7 @@
 ### 1.导入刚才生成的项目
 
 ### 2.随便找个地方写个Main方法用以生成项目代码
-    总共分三个步骤进行生成
+    总共分三个步骤进行生成（maven版本在生成类的类名前加Maven，如：GenDao改为MavenGenDao）
     
 ```java
     第一步：GenEntityForHibernateConf.genAll();//生成实体类，也就是po--依赖数据库
