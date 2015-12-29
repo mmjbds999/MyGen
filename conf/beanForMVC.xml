@@ -7,7 +7,7 @@
 	http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
@@ -21,10 +21,10 @@
 				</bean>
 
 				<bean id="jacksonMessageConverter"
-					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">-->
 					<!-- 解决 HttpMediaTypeNotAcceptableException: Could not find acceptable 
 						representation -->
-					<property name="supportedMediaTypes">
+					<!-- <property name="supportedMediaTypes">
 						<list>
 							<value>text/html;charset=UTF-8</value>
 						</list>
@@ -33,7 +33,7 @@
 
 			</list>
 		</property>
-	</bean>
+	</bean>-->
 
 	<!-- 拦截器 -->
 	<mvc:interceptors>
@@ -74,7 +74,7 @@
 				</bean>
 			</list>
 		</property>
-		<property name="defaultViews">
+		<!-- <property name="defaultViews">
 			<list>
 				<bean id="jsonView"
 					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
@@ -87,7 +87,7 @@
 					</property>
 				</bean>
 			</list>
-		</property>
+		</property>-->
 	</bean>
 
 	<!-- FreeMarker视图解析 。。在这里配置后缀名html和视图解析器。。 -->

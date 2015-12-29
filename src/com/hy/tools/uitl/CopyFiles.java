@@ -102,7 +102,12 @@ public class CopyFiles {
         try {
             int bytesum = 0;
             int byteread = 0;
-            File oldfile = new File(oldPathFile);
+            
+            File dir = new File(new File(targetPath).getParent());
+			if (!dir.exists())
+				dir.mkdirs();
+            
+			File oldfile = new File(oldPathFile);
             String targetfile = targetPath + File.separator +  oldfile.getName();
             if (oldfile.exists()) { //文件存在时
                 InputStream inStream = new FileInputStream(oldPathFile); //读入原文件

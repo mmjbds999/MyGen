@@ -21,7 +21,7 @@ import com.hy.tools.common.TemplatePath;
 import com.hy.tools.enums.SaveInputType;
 import com.hy.tools.enums.SearchInputType;
 import com.hy.tools.enums.ValidEnum;
-import com.hy.tools.main.CreateProject;
+import com.hy.tools.main.CreateMavenProject;
 import com.hy.tools.uitl.FreemarkerUtil;
 import com.hy.tools.uitl.PackageUtil;
 import com.hy.tools.uitl.StringUtil;
@@ -35,7 +35,7 @@ import com.hy.tools.uitl.TimeUtil;
  * @author 黄云
  * 2015年11月11日
  */
-public class GenJsp {
+public class MavenGenJsp {
 
 	public static String genPath = "${path}${projectName}";
 
@@ -43,11 +43,11 @@ public class GenJsp {
 
 	public static String formPackageName = null;
 
-	public static String jspPath = "\\WebRoot\\jsp\\";
+	public static String jspPath = "\\src\\main\\webapp\\jsp\\";
 
-	public static String staticPath = "\\WebRoot\\static\\";
+	public static String staticPath = "\\src\\main\\webapp\\static\\";
 
-	public static String classPath = "\\src\\${packagePath}\\";
+	public static String classPath = "\\src\\main\\java\\${packagePath}\\";
 
 	public static boolean genToTruePath = true;
 
@@ -68,7 +68,7 @@ public class GenJsp {
 			pageType = clazz.getAnnotation(AModelName.class).pageType().getName();
 			
 			if(pageName.equals("admin")&&hasField(clazz,"account")&&hasField(clazz,"password")){
-				CreateProject.genLogin();
+				CreateMavenProject.genLogin();
 			}
 
 			data.put("modNameCN", GenConfig.projectNameCN);//项目中文名

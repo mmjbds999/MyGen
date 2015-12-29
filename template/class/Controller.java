@@ -32,13 +32,6 @@ import ${packageName}.service.${s.voTableB}Service;
 </#list>
 </#if>
 
-
-
-
-
-
-
-import com.hy.mybook.entity.User;
 import com.hy.tools.uitl.PoToJson;
 import com.hy.tools.uitl.StringUtil;
 import com.linzi.framework.db.PageQueryResult;
