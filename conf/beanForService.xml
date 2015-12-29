@@ -8,7 +8,7 @@
     http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<!-- Spring 发送邮件的帮助类 -->
-	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<!--<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
@@ -18,10 +18,10 @@
 				<prop key="mail.smtp.socketFactory.fallback">false</prop> 
 			</props>
 		</property>
-	</bean>
+	</bean>-->
  	
 	<!-- Spring 发送邮件的帮助类 , ssl链接方式-->
-	<bean id="javaMailSenderSsl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<!--<bean id="javaMailSenderSsl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
@@ -31,7 +31,7 @@
 				<prop key="mail.smtp.socketFactory.fallback">false</prop> 
 			</props>
 		</property>
-	</bean>
+	</bean>-->
 
 	<!-- 注意下面的address，这里的address的名称就是访问的WebService的name -->
 	<!-- <jaxws:server id="userService"

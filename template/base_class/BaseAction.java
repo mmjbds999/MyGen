@@ -55,7 +55,7 @@ public class BaseAction {
                 
                 StringBuffer url = request.getRequestURL();  
                 String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length())
-                		.append(request.getServletContext().getContextPath()).append("/").toString();  
+                		.append(request.getContextPath()).append("/").toString();  
                 result = tempContextUrl+"upload/"+fileName;
                 
                 logger.debug("------文件上传成功------");
