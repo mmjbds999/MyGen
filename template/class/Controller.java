@@ -150,7 +150,9 @@ public class ${cPage}Controller extends BaseAction {
 			String[] cks = ck.split(",");
 			for (String c : cks) {
 				${s.voTableB} ${s.voTable} = ${s.voTable}Service.findByIdPO(Integer.parseInt(c));
-			    ck_vo += ${s.voTable}.get${s.voFieldNameB}()+",";
+				if(${s.voTable}!=null){
+					ck_vo += ${s.voTable}.get${s.voFieldNameB}()+",";
+				}
 			}
 			if(ck_vo.length()>0){
 				ck_vo = ck_vo.substring(0,ck_vo.length()-1);
