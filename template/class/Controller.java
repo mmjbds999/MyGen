@@ -74,7 +74,7 @@ public class ${cPage}Controller extends BaseAction {
     	${cPage}Form form = BinderUtil.bindForm(request, ${cPage}Form.class, true);
     	ModelAndView mav = new ModelAndView("${pageName}");
         PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
-        page.setActionUrl("${pageName}/list");
+        page.setActionUrl("${pageName}/list.do");
         mav.addObject("parentName", parentName);
         try {
 			mav.addObject("parentComm", new String(parentComm.getBytes("iso-8859-1"),"UTF-8"));
