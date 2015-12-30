@@ -3,7 +3,7 @@
 
 文档补齐中------
 # 创建项目
-### 1.打开com.hy.tools.main.CreateProject.java
+### 1.打开com.hy.tools.main.CreateProject.java | maven版本为CreateMavenProject.java
 
 ### 2.修改类文件顶部定义的字段value
 
@@ -24,7 +24,7 @@
 ### 1.导入刚才生成的项目
 
 ### 2.随便找个地方写个Main方法用以生成项目代码
-    总共分三个步骤进行生成
+    总共分三个步骤进行生成（maven版本在生成类的类名前加Maven，如：GenDao改为MavenGenDao）
     
 ```java
     第一步：GenEntityForHibernateConf.genAll();//生成实体类，也就是po--依赖数据库
@@ -67,3 +67,10 @@
     好了，看了那么多麻烦的东西，请不要感觉很复杂，因为大部分都生成好了，你只需要微调就好。
     
     最后，执行生成代码：GenJsp.genByVo();搞定，收工！
+    
+# TODO
+    生成项目做成可执行程序，配个可视化界面。
+    生成后的项目里多生成一个可用于微调vo的web界面
+    界面模板配置成可上传形式的
+    各种控件都有扩展空间，比如多附件上传的
+    各种你想得到想不到的，有兴趣就来胡搞瞎搞吧，一切都是为了更高效便捷
