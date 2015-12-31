@@ -240,7 +240,7 @@ public class MavenGenEntityForHibernateConf {
 													"\r\n\tprivate "+StringUtil.upFirstChar(mtab)+" "+mtab+";\r\n";
 											colField.append(temp);
 											
-											String attrtemp = "\r\n\t@ManyToOne(fetch = FetchType.LAZY)" +
+											String attrtemp = "\r\n\t@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)" +
 														"\r\n\t@JoinColumn(name = \""+mcol+"\")";
 											colAttr.append(attrtemp);
 											colAttr.append(colAttrTemp.replace("<column_name_b>", StringUtil.upFirstChar(mtab))
@@ -258,6 +258,9 @@ public class MavenGenEntityForHibernateConf {
 											}
 											if(!other_import.contains("javax.persistence.FetchType")){
 												other_import += "import javax.persistence.FetchType;\r\n";
+											}
+											if(!other_import.contains("javax.persistence.CascadeType")){
+												other_import += "import javax.persistence.CascadeType;\r\n";
 											}
 										}
 									}
