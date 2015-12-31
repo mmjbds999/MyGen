@@ -230,7 +230,7 @@ public class GenEntityForHibernateConf {
 									etype = "String";
 								}else if(rtype.equals("text")){
 									etype = "String";
-									length = "254";
+									length = "65535";
 								}else if(rtype.equals("int")){
 									etype = "Integer";
 								}else if(rtype.equals("datetime")||rtype.equals("date")){
