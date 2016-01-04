@@ -48,7 +48,7 @@ public class BaseAction {
                 // 文件保存路径
                 Date date = new Date();
                 Random rd = new Random();
-                String fileName = date.getTime() + rd.nextInt(100) + file.getOriginalFilename();
+                String fileName = date.getTime() + rd.nextInt(100) + file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
                 filePath = uploadDir + "/" + fileName;
                 // 转存文件
                 file.transferTo(new File(filePath));
