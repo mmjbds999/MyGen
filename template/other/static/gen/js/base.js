@@ -31,7 +31,7 @@ $("#delete").click(function(){
 	var url = page+"/delete.do";
 	$.post(url, {"id":id}, function(d) {
 		if (d.code=="200") {
-			if($("#querybtn")){
+			if($("#querybtn").length>0){
 				$("#querybtn").click();
 			}else{
 				window.location.href=window.location.href;
