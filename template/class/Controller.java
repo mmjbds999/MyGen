@@ -105,7 +105,7 @@ public class ${cPage}Controller extends BaseAction {
      * @param list
      * @return
      */
-    private JSONArray setVoList(List<${cPage}Vo> list){
+    protected JSONArray setVoList(List<${cPage}Vo> list){
     	JSONArray ja = new JSONArray();
     	if(list!=null&&list.size()>0){
     		for (${cPage}Vo ${pageName}Vo : list) {
@@ -120,7 +120,7 @@ public class ${cPage}Controller extends BaseAction {
      * @param list
      * @return
      */
-    private JSONObject setVo(Object obj){
+    protected JSONObject setVo(Object obj){
     	JSONObject jo = new JSONObject();
     	if(obj instanceof JSONObject){
     		jo = (JSONObject)obj;
@@ -166,6 +166,39 @@ public class ${cPage}Controller extends BaseAction {
     }
     
     /**
+     * 保存
+     * @param param
+     * @return
+     */
+    @RequestMapping("/save.do")
+    protected void savePo(${cPage} param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, MultipartFile ${s.name}_file</#if></#list></#if>, HttpServletResponse resp) {
+    	<#if addList??>
+		<#list addList as s>
+    	<#if s.saveType=="img" || s.saveType=="file" || s.saveType=="pwd">
+    	if(param.getId()!=null&&param.getId()>0){
+    		${cPage} po = ${pageName}Service.findByIdPO(param.getId());
+    			<#if s.saveType=="img" || s.saveType=="file">
+            String ${s.name}_path = fileUpload(${s.name}_file, resp);
+        	if(StringUtil.isEmpty(${s.name}_path)){
+        		${s.name}_path = po.get${s.nameB}();
+        	}
+        	param.set${s.nameB}(${s.name}_path);
+        		<#elseif s.saveType=="pwd">
+    		if(param.get${s.nameB}().equals("!@#$%^")){
+        		String ${s.name} = po.get${s.nameB}();
+    			param.set${s.nameB}(${s.name});
+        	}else{
+        		param.set${s.nameB}(EncryptUtil.md5(param.get${s.nameB}()));
+        	}
+        		</#if>
+    	}
+    	</#if>
+        </#list>
+        </#if>
+        ${pageName}Service.save(param);
+    }
+    
+    /**
      * 获取列表数据--all
      */
     @RequestMapping("/all.do")
@@ -192,30 +225,7 @@ public class ${cPage}Controller extends BaseAction {
      */
     @RequestMapping("/save.do")
     public String save(${cPage} param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, MultipartFile ${s.name}_file</#if></#list></#if>, HttpServletResponse resp) {
-    	<#if addList??>
-		<#list addList as s>
-    	<#if s.saveType=="img" || s.saveType=="file" || s.saveType=="pwd">
-    	if(param.getId()!=null&&param.getId()>0){
-    		${cPage} po = ${pageName}Service.findByIdPO(param.getId());
-    			<#if s.saveType=="img" || s.saveType=="file">
-            String ${s.name}_path = fileUpload(${s.name}_file, resp);
-        	if(StringUtil.isEmpty(${s.name}_path)){
-        		${s.name}_path = po.get${s.nameB}();
-        	}
-        	param.set${s.nameB}(${s.name}_path);
-        		<#elseif s.saveType=="pwd">
-    		if(param.get${s.nameB}().equals("!@#$%^")){
-        		String ${s.name} = po.get${s.nameB}();
-    			param.set${s.nameB}(${s.name});
-        	}else{
-        		param.set${s.nameB}(EncryptUtil.md5(param.get${s.nameB}()));
-        	}
-        		</#if>
-    	}
-    	</#if>
-        </#list>
-        </#if>
-        ${pageName}Service.save(param);
+    	savePo(param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, ${s.name}_file</#if></#list></#if>, resp);
         return "redirect:/${pageName}/list.do";
     }
     
