@@ -98,7 +98,7 @@ public class ${className}Vo extends VoForPo<${className}Vo> implements Serializa
 	<#if vo.length==50 || vo.typeStr=="Date">
 	@ASearchObj<#if vo.typeStr=="Date">(type = SearchInputType.${vo.saveType})</#if>
 	</#if>
-	@AListObj(comment = "${vo.comment}", length = ${vo.length}, <#if vo.saveType!="">cType = SaveInputType.${vo.saveType},</#if> option = "AU<#if vo.length<=50>S</#if>V")
+	@AListObj(comment = "${vo.comment}", length = ${vo.length?c}, <#if vo.saveType!="">cType = SaveInputType.${vo.saveType},</#if> option = "AU<#if vo.length<=50>S</#if>V")
 	</#if>
 	<#if vo.saveType=="one2many">
 	@AOne2Many

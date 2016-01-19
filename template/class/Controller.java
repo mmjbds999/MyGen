@@ -32,6 +32,7 @@ import ${packageName}.service.${s.voTableB}Service;
 </#list>
 </#if>
 
+import com.hy.tools.uitl.ChineseUtil;
 import com.hy.tools.uitl.PoToJson;
 import com.hy.tools.uitl.StringUtil;
 import com.linzi.framework.db.PageQueryResult;
@@ -76,11 +77,7 @@ public class ${cPage}Controller extends BaseAction {
         PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
         page.setActionUrl("${pageName}/list.do");
         mav.addObject("parentName", parentName);
-        try {
-			mav.addObject("parentComm", new String(parentComm.getBytes("iso-8859-1"),"UTF-8"));
-		} catch (Exception e) {
-			logger.trace("error", e);
-		}
+        mav.addObject("parentComm", ChineseUtil.toChinese(parentComm));
         mav.addObject("page", page);
 		mav.addObject("form", form);
 		if (page != null) {
@@ -125,7 +122,7 @@ public class ${cPage}Controller extends BaseAction {
     	if(obj instanceof JSONObject){
     		jo = (JSONObject)obj;
     	}else{
-    		jo = PoToJson.getInstance().po2Json(obj, false);
+    		jo = PoToJson.getInstance().po2Json(obj, true);
     	}
 		<#if addList??>
 		<#list addList as s>
@@ -170,19 +167,19 @@ public class ${cPage}Controller extends BaseAction {
      * @param param
      * @return
      */
-    @RequestMapping("/save.do")
     protected void savePo(${cPage} param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, MultipartFile ${s.name}_file</#if></#list></#if>, HttpServletResponse resp) {
     	<#if addList??>
 		<#list addList as s>
     	<#if s.saveType=="img" || s.saveType=="file" || s.saveType=="pwd">
+    	<#if s.saveType=="img" || s.saveType=="file">
+        String ${s.name}_path = fileUpload(${s.name}_file, resp);
+        </#if>
     	if(param.getId()!=null&&param.getId()>0){
     		${cPage} po = ${pageName}Service.findByIdPO(param.getId());
     			<#if s.saveType=="img" || s.saveType=="file">
-            String ${s.name}_path = fileUpload(${s.name}_file, resp);
         	if(StringUtil.isEmpty(${s.name}_path)){
         		${s.name}_path = po.get${s.nameB}();
         	}
-        	param.set${s.nameB}(${s.name}_path);
         		<#elseif s.saveType=="pwd">
     		if(param.get${s.nameB}().equals("!@#$%^")){
         		String ${s.name} = po.get${s.nameB}();
@@ -192,7 +189,16 @@ public class ${cPage}Controller extends BaseAction {
         	}
         		</#if>
     	}
+    	<#if s.saveType=="img" || s.saveType=="file">
+    	param.set${s.nameB}(${s.name}_path);
+        </#if>
     	</#if>
+    	<#if s.saveType=="selectvo">
+        if(param.get${s.nameB}()!=null&&param.get${s.nameB}().getId()!=null){
+        	${s.nameB} ${s.name} = ${s.name}Service.findByIdPO(param.get${s.nameB}().getId());
+    		param.set${s.nameB}(${s.name});
+    	}
+        </#if>
         </#list>
         </#if>
         ${pageName}Service.save(param);

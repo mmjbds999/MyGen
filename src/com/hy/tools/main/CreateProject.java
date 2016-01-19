@@ -21,7 +21,7 @@ public class CreateProject {
 	
 	public static String projectNameCN = "maven测试下";//项目名称--中文
 	
-	public static String dbName = "mybook";//数据库名称
+	public static String dbName = "test";//数据库名称
 	
 	public static String packageName = "com.hy.test";//包名称
 	

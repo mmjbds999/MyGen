@@ -221,7 +221,7 @@ public class Column {
 	public void setQname(String qname) {
 		this.qname = qname;
 	}
-	public boolean userbtn() {
+	public boolean isUserbtn() {
 		return userbtn;
 	}
 	public void setUserbtn(boolean userbtn) {

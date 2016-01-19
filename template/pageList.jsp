@@ -342,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                                                    	</#if>
 					                                                    	<#if addList??>
 																		  	<#list addList as add>
-																				<#if add.userBtn?? && add.userBtn>
+																				<#if add.userbtn?? && add.userbtn>
 						                                                    <a href="${add.voName }/list.do?${pageName}_id=@@@var.id@@&parentName=${pageName}&parentComm=${modName }" class="btn btn-sm btn-primary" >${add.qname}</a>
 					                                                    		</#if>
 					                                                    	</#list>

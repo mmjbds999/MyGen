@@ -66,7 +66,7 @@ public class LonginService {
         int startOfAction = uri.lastIndexOf("/");
         String cookiePath = uri.substring(0, startOfAction);
         //若记住密码 则把用户登录信息保存到cookie
-        if(form.getRemember().equals("1")){
+        if(form.getRemember()!=null&&form.getRemember().equals("1")){
             // cookie记录用户名和密码
             try {
                 CookieUtils.addEncryptCookie(response, cookiePath, BaseLoginController.COOKIE_USER_NAME, form.getAccount(), null,
