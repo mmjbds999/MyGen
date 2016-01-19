@@ -22,7 +22,7 @@ import ${packageNameForm}.entity.${cPage};
 import ${packageNameForm}.vo.${cPage}Vo;
 <#if addList??>
 <#list addList as s>
-	<#if (s.saveType=="select" || s.saveType=="radio")>
+	<#if (s.saveType=="select" || s.saveType=="radio" || s.saveType=="checkbox")>
 import ${packageName}.enums.${s.enumName};
 	</#if>
 	<#if (s.saveType=="selectvo" || s.saveType=="checkboxvo")>
@@ -31,6 +31,7 @@ import ${packageName}.service.${s.voTableB}Service;
 	</#if>
 </#list>
 </#if>
+
 
 import com.hy.tools.uitl.ChineseUtil;
 import com.hy.tools.uitl.PoToJson;
@@ -133,6 +134,21 @@ public class ${cPage}Controller extends BaseAction {
 			<#if (s.saveType=="select" || s.saveType=="radio")>
 		//翻译枚举
 		jo.put("${s.name}_vo", ${s.enumName}.parse(jo.getIntValue("${s.name}")).getName());
+			</#if>
+			<#if (s.saveType=="checkbox")>
+		//翻译枚举
+		String ckenum = jo.getString("${s.name}");
+		String ckenum_vo = "";
+		if(StringUtils.isNotEmpty(ckenum)){
+			String[] ckes = ckenum.split(",");
+			for (String c : ckes) {
+				ckenum_vo += ${s.enumName}.parse(Integer.parseInt(c)).getName()+",";
+			}
+			if(ckenum_vo.length()>0){
+				ckenum_vo = ckenum_vo.substring(0,ckenum_vo.length()-1);
+			}
+		}
+		jo.put("${s.name}_vo", ckenum_vo);
 			</#if>
 			<#if (s.saveType=="selectvo")>
 		//翻译关联表
