@@ -253,7 +253,15 @@ public class MavenGenJsp {
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("modelList", ja);
 			String result = FreemarkerUtil.getTemplate(template, data);
-			StringUtil.write(genPath+jspPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
+			if(genPath!=null && staticPath!=null){
+				if(genToTruePath){
+					StringUtil.write(genPath+staticPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
+				}else{
+					StringUtil.write(genPath+jspPath+GenFilePath.includeFolder+"left.js", result);
+				}
+			}else{
+				StringUtil.write(System.getProperty("user.dir")+GenFilePath.trueTncludeFolder+"left.js", result);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
