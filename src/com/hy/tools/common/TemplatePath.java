@@ -91,6 +91,15 @@ public interface TemplatePath {
 	
 	//---------------------------------------下面是创建项目所需的--------------------------------------------
 	
+	/**
+	 * build.properties
+	 */
+	public static final String build_prop = "/template/build/log4j.properties";
+	
+	/**
+	 * build.xml
+	 */
+	public static final String build_xml = "/template/build/log4j.properties";
 	
 	/**
 	 * log4j

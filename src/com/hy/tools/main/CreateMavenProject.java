@@ -37,6 +37,15 @@ public class CreateMavenProject {
 	
 	public static String maven_spring_version = "4.1.8.RELEASE";//spring版本号--默认用4.1.8.RELEASE
 	
+	//下面这些是发版的一些信息
+	public static String copyright = "test";//版权所有
+	
+	public static String version = "V1.0";//版本号
+	
+	public static String author = "hy";//作者
+	
+	public static String webRoot = "WebRoot";//用eclipse的朋友请改成WebContent
+	
 	/**
 	 * 生成prop配置
 	 */
@@ -57,6 +66,29 @@ public class CreateMavenProject {
 				.replace("${projectNameL}", projectName.toLowerCase());
 		StringUtil.write(path+projectName+"/src/main"+GenFilePath.prop+projectName.toLowerCase()+".properties", template);//写文件到项目路径
 		System.out.println("prop配置生成完毕！");
+	}
+	
+	/**
+	 * 生成Ant脚本
+	 */
+	public static void genAnt() {
+		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.build_prop);
+		template = template.replace("##@projectName##", projectName)
+				.replace("##@copyright##", copyright)
+				.replace("##@version##", version)
+				.replace("##@author##", author)
+				.replace("##@webRoot##", webRoot);
+		StringUtil.write(path+projectName+GenFilePath.build+"build.properties", template);//写文件到项目路径
+		
+		template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.build_xml);
+		template = template.replace("##@projectName##", projectName)
+				.replace("##@copyright##", copyright)
+				.replace("##@version##", version)
+				.replace("##@author##", author)
+				.replace("##@webRoot##", webRoot);
+		StringUtil.write(path+projectName+GenFilePath.build+"build.xml", template);//写文件到项目路径
+		
+		System.out.println("Ant脚本生成完毕！");
 	}
 	
 	/**
@@ -262,6 +294,7 @@ public class CreateMavenProject {
 		genWebConfig();
 		genTemplate();
 		genTools();
+		genAnt();
 	}
 	
 	public static void main(String[] args) {

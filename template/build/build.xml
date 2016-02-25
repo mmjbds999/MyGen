@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="##@projectName##" default="dist" basedir=".">
+	<property file="build.properties" />
+	<property file="copyRight.properties" />
+
+	<path id="lib.project">
+		<fileset dir="${lib.compile.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- 清理，删除原来的目录 -->
+	<target name="clean">
+		<echo>清理输出目录</echo>
+		<delete dir="${dir.build}" />
+	</target>
+
+	<target name="compile" depends="clearCompile">
+		<echo>开始编译</echo>
+		<mkdir dir="${dir.classes}" />
+		<javac debug="${build.debug}" encoding="UTF-8" classpath="." destdir="${dir.classes}" includeAntRuntime="false">
+			<classpath refid="lib.project" />
+			<src path="src" />
+			<src path="tools" />
+		</javac>
+		<copy todir="${dir.classes}">
+			<fileset dir="conf">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+			<fileset dir="src">
+				<include name="**/*.html" />
+                <include name="**/*.jsp" />
+			</fileset>
+			<fileset dir="tools">
+				<include name="**/*.html" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clearCompile" description="删除编译时生成的临时文件">
+		<echo>删除编译时生成的临时文件 ${dir.classes}</echo>
+		<delete dir="${dir.classes}" />
+		<delete dir="${dir.war.temp}" description="删除临时目录"/>
+	</target>
+	
+	<!-- 将编译目录中的内容打包成为jar文件  -->
+	<target name="jar" depends="compile">
+		<echo>开始打包jar文件</echo>
+		<mkdir dir="${dir.war.temp}/WEB-INF/lib" />
+		<tstamp>
+			<format property="datestamp" pattern="yyyy-MM-dd HH:mm:ss" />
+		</tstamp>
+
+		<jar destfile="${dir.war.temp}/WEB-INF/lib/${jar.filename}" basedir="${dir.classes}" includes="**">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Implementation-Title" value="${project.name}" />
+				<!--<attribute name="Implementation-Version" value="${src.version}" />-->
+				<attribute name="Implementation-Vendor" value="${copyright.vendor}" />
+				<attribute name="Build-Date" value="${datestamp}" />
+			</manifest>
+		</jar>
+		<!--<delete dir="${dir.classes}" />-->
+	</target>
+
+	<!-- 发版 -->
+	<target name="dist" depends="clean,copyFile">
+		<echo>发版完成</echo>
+	</target>
+
+	<target name="copyFile" depends="jar" description="拷贝文件到准备打成war包的目录">
+		<copy todir="${dir.war.temp}" preservelastmodified="true" description="拷贝jar文件和jsp文件">
+			<fileset dir="WebRoot">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${dir.war.temp}/WEB-INF/install" preservelastmodified="true" description="拷贝jar文件和jsp文件">
+			<fileset dir="prop">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="war" depends="copyFile" description="打war包">
+		<war warfile="${dir.build}/${war.filename}.war" description="打包成为war文件"
+			webxml="${dir.war.temp}/WEB-INF/web.xml">
+			<fileset dir="${dir.war.temp}" />
+		</war>
+
+		<!--
+		<delete dir="${dir.war.temp}" description="删除临时目录"/>
+		-->
+		<echo>War包，打包完成 ${dir.build}/${war.filename}.war</echo>
+	</target>
+
+	<target name="javadoc">
+		<delete dir="${dir.javadoc}" />
+		<mkdir dir="${dir.javadoc}"/>
+		<javadoc destdir="${dir.javadoc}" access="public" additionalparam="-encoding utf-8 -charset utf-8 " 
+			author="true" source="1.7" splitindex="true" use="true" version="true" windowtitle="${project.name}">
+			<bottom>${copyright.javadoc}</bottom>
+			<classpath refid="lib.project" />
+			<sourcepath path="src" />
+		</javadoc>
+	</target>
+
+</project>
+

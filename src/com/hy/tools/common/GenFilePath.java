@@ -49,6 +49,11 @@ public interface GenFilePath {
 	//---------------------------------------下面是创建项目所需的--------------------------------------------
 	
 	/**
+	 * build
+	 */
+	public static String build = "/build/";
+	
+	/**
 	 * prop
 	 */
 	public static String prop = "/prop/";
