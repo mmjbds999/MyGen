@@ -255,7 +255,7 @@ public class MavenGenJsp {
 			String result = FreemarkerUtil.getTemplate(template, data);
 			if(genPath!=null && staticPath!=null){
 				if(genToTruePath){
-					StringUtil.write(genPath+staticPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
+					StringUtil.write(genPath+jspPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
 				}else{
 					StringUtil.write(genPath+jspPath+GenFilePath.includeFolder+"left.js", result);
 				}
@@ -435,7 +435,7 @@ public class MavenGenJsp {
 				column.setIsHidden(true);
 				String defaultVal = "";
 				if(field.getType().getSimpleName().equals("Date")){
-					defaultVal = TimeUtil.getNowTime("yyyy-MM-dd HH:mm:ss");
+					//defaultVal = TimeUtil.getNowTime("yyyy-MM-dd HH:mm:ss");
 				}else if(field.getType().getSimpleName().equals("Integer")
 						||field.getType().getSimpleName().equals("int")
 						||field.getType().getSimpleName().equals("bigint")
@@ -446,6 +446,9 @@ public class MavenGenJsp {
 					defaultVal = "0";
 				}else if(field.getType().getSimpleName().toLowerCase().equals("boolean")){
 					defaultVal = "false";
+				}else if(field.getType().getName().contains(".entity.")){
+					defaultVal = "${"+column.getName()+"_id }";
+					column.setIsSetDefault(true);
 				}
 				column.setDefaultVal(defaultVal);
 			}

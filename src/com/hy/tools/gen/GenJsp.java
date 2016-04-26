@@ -255,7 +255,7 @@ public class GenJsp {
 			String result = FreemarkerUtil.getTemplate(template, data);
 			if(genPath!=null && staticPath!=null){
 				if(genToTruePath){
-					StringUtil.write(genPath+staticPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
+					StringUtil.write(genPath+jspPath+GenFilePath.trueTncludeFolder+"left.jsp", result);
 				}else{
 					StringUtil.write(genPath+jspPath+GenFilePath.includeFolder+"left.js", result);
 				}
@@ -446,6 +446,9 @@ public class GenJsp {
 					defaultVal = "0";
 				}else if(field.getType().getSimpleName().toLowerCase().equals("boolean")){
 					defaultVal = "false";
+				}else if(field.getType().getName().contains(".entity.")){
+					defaultVal = "${"+column.getName()+"_id }";
+					column.setIsSetDefault(true);
 				}
 				column.setDefaultVal(defaultVal);
 			}

@@ -49,6 +49,7 @@ public class Column {
 	private String defaultVal;//默认值
 	private String enumName;//使用的枚举的Name
 	private Boolean isHidden=false;
+	private Boolean isSetDefault=false;//是否设置默认值
 	
 	/** 查看详情相关 */
 	private String viweType;//保存页面展示类型
@@ -226,6 +227,12 @@ public class Column {
 	}
 	public void setUserbtn(boolean userbtn) {
 		this.userbtn = userbtn;
+	}
+	public Boolean getIsSetDefault() {
+		return isSetDefault;
+	}
+	public void setIsSetDefault(Boolean isSetDefault) {
+		this.isSetDefault = isSetDefault;
 	}
 	
 }

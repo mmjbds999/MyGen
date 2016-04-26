@@ -94,12 +94,12 @@ public interface TemplatePath {
 	/**
 	 * build.properties
 	 */
-	public static final String build_prop = "/template/build/log4j.properties";
+	public static final String build_prop = "/template/build/build.properties";
 	
 	/**
 	 * build.xml
 	 */
-	public static final String build_xml = "/template/build/log4j.properties";
+	public static final String build_xml = "/template/build/build.xml";
 	
 	/**
 	 * log4j

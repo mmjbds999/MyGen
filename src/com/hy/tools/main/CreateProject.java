@@ -43,6 +43,8 @@ public class CreateProject {
 	
 	public static String webRoot = "WebRoot";//用eclipse的朋友请改成WebContent
 	
+	public static boolean hasAdmin = true;//是否有admin表，默认为true
+	
 	/**
 	 * 生成prop配置
 	 */
@@ -162,6 +164,13 @@ public class CreateProject {
 		//BaseAction.java
 		String template = StringUtil.readFile(System.getProperty("user.dir")+"/template/base_class/BaseAction.java");
 		template = template.replace("${packageName}", packageName);
+		if(hasAdmin){
+			template = template.replace("###notes@@@", "");
+			template = template.replace("###end@@@", "*/");
+		}else{
+			template = template.replace("###notes@@@", "*/");
+			template = template.replace("###end@@@", "");
+		}
 		StringUtil.write(path+projectName+"/src/"+packagePath+"/controller/BaseAction.java", template);//写文件到项目路径
 		
 		//BaseServcie.java
