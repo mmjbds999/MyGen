@@ -67,13 +67,12 @@ public class BaseAction {
         return result;
     }
 	
-    /**
-     * 获取user
-     * @return
-     ###end@@@
-    public Admin getUser(){
-    	return (Admin)request.getSession().getAttribute("admin");
-    }
-    ###notes@@@
+//    /**
+//     * 获取user
+//     * @return
+//     */
+//    public Admin getUser(){
+//    	return (Admin)request.getSession().getAttribute("admin");
+//    }
     
 }
