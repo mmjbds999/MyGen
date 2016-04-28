@@ -25,10 +25,11 @@ public class GenMain {
 		//----------------------maven--------------------------
 		
 //		MavenGenEntityForHibernateConf.genAll();//entity--1//
-//		MavenGenDao.gen();//dao--1
-//		MavenGenVo.genVoList(false);//vo--2
-//		MavenGenService.genServiceList();//Service--2
-		MavenGenJsp.genByVo();//jspAndAction--3
+//		MavenGenDao.gen();   //dao--1
+//		MavenGenVo.genVoList(false);    //vo--2
+//		MavenGenForms.genForms();    //forms--3
+//		MavenGenService.genServiceList();    //Service--4
+		MavenGenJsp.genByVo();    //jspAndAction--5
 	}
 	
 }
