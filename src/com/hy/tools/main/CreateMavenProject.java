@@ -23,11 +23,14 @@ public class CreateMavenProject {
 	
 	public static String dbName = "forest_street";//数据库名称
 	
+	//需要连接的数据库服务器地址,本机可以写127.0.0.1
+	public static String dbServerUrl = "127.0.0.1";
+	
 	public static String packageName = "com.linzi.forest";//包名称--maven_groupId
 	
 	public static String packagePath = "com\\\\linzi\\\\forest";//包路径
 	
-	public static String path = "G:\\\\JavaSave2015\\\\";//需要创建项目的文件夹路径
+	public static String path = "E:\\\\linzi_git_work\\\\";//需要创建项目的文件夹路径
 	
 	public static String user = "root";//数据库用户
 	
@@ -44,7 +47,7 @@ public class CreateMavenProject {
 	
 	public static String author = "linzi";//作者
 	
-	public static String webRoot = "WebRoot";//用eclipse的朋友请改成WebContent
+	public static String webRoot = "WebContent";//用eclipse的朋友请改成WebContent
 	
 	public static boolean hasAdmin = true;//是否有admin表，默认为true
 	
@@ -62,6 +65,7 @@ public class CreateMavenProject {
 		template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.project_prop);//获取项目配置路径
 		template = template.replace("${packageName}", packageName)
 				.replace("${projectName}", projectName)
+				.replace("${dbServerUrl}", dbServerUrl)
 				.replace("${dbName}", dbName)
 				.replace("${user}", user)
 				.replace("${pwd}", pwd)
@@ -275,6 +279,7 @@ public class CreateMavenProject {
         				.replace("${projectName}", projectName)
         				.replace("${projectNameCN}", projectNameCN)
         				.replace("${path}", path)
+        				.replace("${dbServerUrl}", dbServerUrl)
         				.replace("${user}", user)
         				.replace("${pwd}", pwd)
         				.replace("${packagePath}", packagePath)

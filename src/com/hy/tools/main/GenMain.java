@@ -1,7 +1,5 @@
 package com.hy.tools.main;
 
-import com.hy.tools.gen.MavenGenJsp;
-
 /**
  * <pre>
  * 生成哦
@@ -26,10 +24,12 @@ public class GenMain {
 		
 //		MavenGenEntityForHibernateConf.genAll();//entity--1//
 //		MavenGenDao.gen();   //dao--1
+		
+		//第一次生成VoList时，记得将参数设置true(参数为true时：在src目录下生成正式使用的VoList，参数为false时：在项目根目录的gen目录下面生成临时的VOList)
 //		MavenGenVo.genVoList(false);    //vo--2
 //		MavenGenForms.genForms();    //forms--3
 //		MavenGenService.genServiceList();    //Service--4
-		MavenGenJsp.genByVo();    //jspAndAction--5
+//		MavenGenJsp.genByVo();    //jspAndAction--5
 	}
 	
 }

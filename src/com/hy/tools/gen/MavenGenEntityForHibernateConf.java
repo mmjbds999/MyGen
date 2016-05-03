@@ -350,7 +350,7 @@ public class MavenGenEntityForHibernateConf {
 			constraintSQL = constraintSQL.replace("<dbName>", dbName).replace("<tabName>", table.getName());
 			
 			Connection conn = null;
-			String url = "jdbc:mysql://localhost:3306/${dbName}?"
+			String url = "jdbc:mysql://${dbServerUrl}:3306/${dbName}?"
 	                + "user=${user}&password=${pwd}&useUnicode=true&characterEncoding=UTF8";
 			Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
 	        // 一个Connection代表一个数据库连接
@@ -396,7 +396,7 @@ public class MavenGenEntityForHibernateConf {
 			alltable = alltable.replace("<dbName>", dbName);
 			
 			Connection conn = null;
-			String url = "jdbc:mysql://localhost:3306/${dbName}?"
+			String url = "jdbc:mysql://${dbServerUrl}:3306/${dbName}?"
 	                + "user=${user}&password=${pwd}&useUnicode=true&characterEncoding=UTF8";
 			Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
 	        // 一个Connection代表一个数据库连接
