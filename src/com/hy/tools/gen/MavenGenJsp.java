@@ -67,7 +67,7 @@ public class MavenGenJsp {
 			pageName = clazz.getAnnotation(AModelName.class).pageName();
 			pageType = clazz.getAnnotation(AModelName.class).pageType().getName();
 			
-			if(pageName.equals("admin")&&hasField(clazz,"account")&&hasField(clazz,"password")){
+			if(pageName.equals("admin")&&hasField(clazz,"account")&&hasField(clazz,"pwd")){
 				CreateMavenProject.genLogin();
 			}
 
