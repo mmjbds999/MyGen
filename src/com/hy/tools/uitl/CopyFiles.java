@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * <pre>
@@ -124,6 +125,17 @@ public class CopyFiles {
         	e.printStackTrace();
         }
     }
+    
+    /**
+     * 复制整个文件夹的内容(含自身), 过滤掉指定的文件夹
+     * 
+     * @param oldPath   需要复制的文件夹来源
+     * @param newPath   复制到什么地方去
+     * @param folderNames   指定的文件夹内容不进行复制
+     */
+    public static void copyFolderWithSelfForFilter(String oldPath, String newPath, List<String> folderNames){
+    	executeCopyFolder(oldPath, newPath, folderNames);
+    }
 
     /**
      * 复制整个文件夹的内容(含自身)
@@ -132,7 +144,18 @@ public class CopyFiles {
      * @return
      */
     public static void copyFolderWithSelf(String oldPath, String newPath) {
-        try {
+    	executeCopyFolder(oldPath, newPath, null);
+    }
+    
+    /**
+     * 执行整个文件夹的内容复制
+     * 
+     * @param oldPath   需要复制的文件夹来源
+     * @param newPath   复制到什么地方去
+     * @param folderNames    是否有需要过滤的文件夹内容
+     */
+    private static void executeCopyFolder(String oldPath, String newPath, List<String> folderNames) {
+    	try {
             new File(newPath).mkdirs(); //如果文件夹不存在 则建立新文件夹
             File dir = new File(oldPath);
 			// 目标
@@ -166,7 +189,12 @@ public class CopyFiles {
                     input.close();
                 }
                 if (temp.isDirectory()) { //如果是子文件夹
-                	copyFolderWithSelf(oldPath + "/" + file[i], newPath);
+                	//如果存在需要过滤的文件夹内容，则跳过当前的循环继续复制下一个文件夹内容
+                	if(folderNames != null && folderNames.contains(temp.getName())){
+                		continue;
+                	}
+                	//第二轮的子文件夹不再进行过滤操作
+                	executeCopyFolder(oldPath + "/" + file[i], newPath, null);
                 }
             }
         } catch (Exception e) {

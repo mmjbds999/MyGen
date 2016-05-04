@@ -25,7 +25,7 @@ public class ${tableName_R}Dao extends BaseMainDao<${tableName}, Integer>{
 	 * @return
 	 */
 	public Admin findByUserNameAndPassword(String account, String password){
-		List<Admin> list = this.find("from Admin a where a.account=? and a.password=?", account, password);
+		List<Admin> list = this.find("from Admin a where a.account=? and a.pwd=?", account, password);
 		if(list.size()>0){
 			return list.get(0);
 		}

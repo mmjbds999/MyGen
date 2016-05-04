@@ -1,6 +1,8 @@
 package com.hy.tools.main;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.hy.tools.common.GenFilePath;
 import com.hy.tools.common.TemplatePath;
@@ -17,17 +19,20 @@ import com.hy.tools.uitl.StringUtil;
  */
 public class CreateMavenProject {
 
-	public static String projectName = "ForestStreet";//项目名称--maven_artifactId
+	public static String projectName = "MyProjectTest";//项目名称--maven_artifactId
 	
 	public static String projectNameCN = "森林街";//项目名称--中文
 	
 	public static String dbName = "forest_street";//数据库名称
 	
+	//需要连接的数据库服务器地址,本机可以写127.0.0.1
+	public static String dbServerUrl = "127.0.0.1";
+	
 	public static String packageName = "com.linzi.forest";//包名称--maven_groupId
 	
 	public static String packagePath = "com\\\\linzi\\\\forest";//包路径
 	
-	public static String path = "G:\\\\JavaSave2015\\\\";//需要创建项目的文件夹路径
+	public static String path = "E:\\\\linzi_git_work\\\\";//需要创建项目的文件夹路径
 	
 	public static String user = "root";//数据库用户
 	
@@ -44,7 +49,7 @@ public class CreateMavenProject {
 	
 	public static String author = "linzi";//作者
 	
-	public static String webRoot = "WebRoot";//用eclipse的朋友请改成WebContent
+	public static String webRoot = "WebContent";//用eclipse的朋友请改成WebContent
 	
 	public static boolean hasAdmin = true;//是否有admin表，默认为true
 	
@@ -62,6 +67,7 @@ public class CreateMavenProject {
 		template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.project_prop);//获取项目配置路径
 		template = template.replace("${packageName}", packageName)
 				.replace("${projectName}", projectName)
+				.replace("${dbServerUrl}", dbServerUrl)
 				.replace("${dbName}", dbName)
 				.replace("${user}", user)
 				.replace("${pwd}", pwd)
@@ -90,6 +96,8 @@ public class CreateMavenProject {
 				.replace("##@webRoot##", webRoot);
 		StringUtil.write(path+projectName+GenFilePath.build+"build.xml", template);//写文件到项目路径
 		
+		StringUtil.copyFile(System.getProperty("user.dir") + TemplatePath.copyRight_prop, path+projectName+GenFilePath.build+"copyRight.properties");
+		
 		System.out.println("Ant脚本生成完毕！");
 	}
 	
@@ -98,7 +106,19 @@ public class CreateMavenProject {
 	 */
 	public static void genTemplate(){
 		try {
-			CopyFiles.copyFolderWithSelf(System.getProperty("user.dir")+"/template", path+projectName);
+			//CopyFiles.copyFolderWithSelf(System.getProperty("user.dir")+"/template", path+projectName);
+
+			//设置一下哪些文件夹的内容是不需要复制的
+			List<String> filterNames = new ArrayList<>();
+			filterNames.add("build");
+			filterNames.add("maven");
+			filterNames.add("other");
+			filterNames.add("project");
+			filterNames.add("setting");
+			filterNames.add("web");
+			
+			CopyFiles.copyFolderWithSelfForFilter(System.getProperty("user.dir")+"/template", path+projectName, filterNames);
+			
 			System.out.println("模板拷贝完毕！");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -275,6 +295,7 @@ public class CreateMavenProject {
         				.replace("${projectName}", projectName)
         				.replace("${projectNameCN}", projectNameCN)
         				.replace("${path}", path)
+        				.replace("${dbServerUrl}", dbServerUrl)
         				.replace("${user}", user)
         				.replace("${pwd}", pwd)
         				.replace("${packagePath}", packagePath)
@@ -296,7 +317,8 @@ public class CreateMavenProject {
 	public static void genProject(){
 		genProp();
 		genConf();
-		copyLib();
+		//拷贝maven_lib下面的commons-util工具包，跟github用户可以拷过去。
+		//copyLib();
 		genWebRoot();
 		genBaseClass();
 		genPom();

@@ -67,7 +67,7 @@ public class MavenGenJsp {
 			pageName = clazz.getAnnotation(AModelName.class).pageName();
 			pageType = clazz.getAnnotation(AModelName.class).pageType().getName();
 			
-			if(pageName.equals("admin")&&hasField(clazz,"account")&&hasField(clazz,"password")){
+			if(pageName.equals("admin")&&hasField(clazz,"account")&&hasField(clazz,"pwd")){
 				CreateMavenProject.genLogin();
 			}
 
@@ -105,7 +105,7 @@ public class MavenGenJsp {
 			data.put("showList", showList);
 
 			genClass(pageName, showList, addList);//生成Action
-			genForms(pageName, searchList, addList);//生成Form
+//			genForms(pageName, searchList, addList);//生成Form
 
 			String result = FreemarkerUtil.getTemplate(template, data);
 			result = result.replace("@@@", "${").replace("@@", "}");
@@ -159,46 +159,6 @@ public class MavenGenJsp {
 			}
 		}else{
 			StringUtil.write(System.getProperty("user.dir")+GenFilePath.classFolder+pageName+"Controller.java", result);
-		}
-	}
-
-	/**
-	 * 生成Form
-	 * @param pageName
-	 * @param searchList
-	 */
-	private static void genForms(String pageName, List<Column> searchList, List<Column> addList){
-		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.pageListForm);
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("pageName", pageName);
-		if(pageName.equals("admin")){
-			data.put("isAdmin", true);
-		}
-		String packageName = classPath.replace("\\", ".");
-		packageName = packageName.substring(packageName.indexOf("com."));
-		packageName = packageName.substring(0,packageName.length()-1);
-		data.put("packageName", packageName);
-		data.put("searchList", searchList);
-		data.put("addList", addList);
-		String cPage = StringUtil.upFirstChar(pageName);
-		data.put("cPage", cPage);
-		data.put("nowDate", TimeUtil.getNowTime("yyyy-MM-dd"));
-		if(formPath!=null){
-			data.put("packageName", formPackageName);
-		}
-		String result = FreemarkerUtil.getTemplate(template, data);
-		if(genPath!=null && classPath!=null){
-			if(genToTruePath){
-				if(formPath!=null){
-					StringUtil.write(formPath+"forms\\"+cPage+"Form.java", result);
-				}else{
-					StringUtil.write(genPath+classPath+"forms\\"+cPage+"Form.java", result);
-				}
-			}else{
-				StringUtil.write(genPath+jspPath+GenFilePath.formFolder+cPage+"Form.java", result);
-			}
-		}else{
-			StringUtil.write(System.getProperty("user.dir")+GenFilePath.formFolder+pageName+"Form.java", result);
 		}
 	}
 

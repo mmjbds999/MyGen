@@ -44,7 +44,7 @@ public class GenDao {
 			pkg = pkg.substring(0,pkg.lastIndexOf("."));
 			
 			Connection conn = null;
-			String url = "jdbc:mysql://localhost:3306/${dbName}?"
+			String url = "jdbc:mysql://${dbServerUrl}:3306/${dbName}?"
 	                + "user=${user}&password=${pwd}&useUnicode=true&characterEncoding=UTF8";
 			Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
 	        // 一个Connection代表一个数据库连接
