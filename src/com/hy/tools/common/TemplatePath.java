@@ -100,6 +100,11 @@ public interface TemplatePath {
 	 * build.xml
 	 */
 	public static final String build_xml = "/template/build/build.xml";
+
+	/**
+	 * copyRight.properties
+	 */
+	public static final String copyRight_prop = "/template/build/copyRight.properties";
 	
 	/**
 	 * log4j
