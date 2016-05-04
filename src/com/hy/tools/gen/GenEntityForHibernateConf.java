@@ -385,7 +385,7 @@ public class GenEntityForHibernateConf {
 				String COLUMN_NAME = rs.getString("COLUMN_NAME");
 				String REFERENCED_TABLE_NAME = rs.getString("REFERENCED_TABLE_NAME");
 				
-				if(TABLE_NAME.equals(table.getName())){
+				if(TABLE_NAME.equals(table.getName())&&REFERENCED_TABLE_NAME!=null){
 					many.add(TABLE_NAME+"@"+REFERENCED_TABLE_NAME+"@"+COLUMN_NAME);//格式：表名|映射表名|映射字段名
 				}else if(REFERENCED_TABLE_NAME.equals(table.getName())){
 					one.add(TABLE_NAME+"@"+REFERENCED_TABLE_NAME);
