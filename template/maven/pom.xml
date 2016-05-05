@@ -185,7 +185,7 @@
         <dependency>
 		  <groupId>com.linzi.commons</groupId>
 		  <artifactId>commons-util</artifactId>
-		  <version>HB4-1.0.17-SNAPSHOT</version>
+		  <version>HB4-1.0.20-SNAPSHOT</version>
 		</dependency>
 
     </dependencies>

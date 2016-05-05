@@ -524,7 +524,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	 							   '<td>'+obj.${add.voFieldName}+'</td>'+
   	 							   '<td>'+
   	 								   '<div class="btn-group">'+
-  	 								  	   '<a href="javascript:$(\'#${add.name}\').val('+obj.id+');$(\'#${add.name}_show\').val(\''+obj.${add.voFieldName}+'\');$(\'#${add.name}_mod_close\').click();"'+ 
+  	 								  	   '<a href="javascript:void(0);" onclick="javascript:$(\'#${add.name}\').val('+obj.id+');$(\'#${add.name}_show\').val(\''+obj.${add.voFieldName}+'\');$(\'#${add.name}_mod_close\').click();"'+ 
   	 								  	   ' class="btn btn-sm btn-primary" >选择</a>'+
   	 								   '</div>'+
   	 							   '</td></tr>';
