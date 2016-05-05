@@ -125,8 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        	<div class="col-md-4">
 	                                                <input type="text" id="${add.name }_show" class="form-control"
 	                                                       data-toggle="modal" data-target="#${add.name }_mod" readonly="true"
-	                                                       placeholder="查询${add.comment }" maxlength="${add.length }"> <span
-	                                                    class="help-block">${add.length }个字符以内</span>
+	                                                       placeholder="查询${add.comment }" > 
 	                                                <input type="hidden" id="${add.name }" name="${add.name }.id">
 	                                            </div>
 	                                            <#elseif add.saveType=="checkboxvo">
