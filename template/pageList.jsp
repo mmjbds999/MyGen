@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        	<div class="col-md-4">
 	                                                <input type="text" id="${add.name }_show" class="form-control"
 	                                                       data-toggle="modal" data-target="#${add.name }_mod" readonly="true"
-	                                                       placeholder="查询${add.comment }" > 
+	                                                       placeholder="查询${add.comment }" >
 	                                                <input type="hidden" id="${add.name }" name="${add.name }.id">
 	                                            </div>
 	                                            <#elseif add.saveType=="checkboxvo">
@@ -631,11 +631,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <#list addList as add>
 	    	<#if add.saveType=="selectvo">
     	/** 根据vo填充下拉选项 */
-	    $.post("${add.voName}", {}, function(d){
+	    	<#if add.isChild>
+    	$("#${add.parentName}").change(function(){
+    		getChild($(this).val());
+	    });
+	    	<#else>
+    	$.post("${add.voName}", {}, function(d){
     		$.each(d,function(i, item){
     			$("#${add.name}").append("<option value='"+item.id+"'>"+item.${add.voFieldName}+"</option>");
    		  	});
 	    },"json");
+    		</#if>
 	    	</#if>
 	    </#list>
 	    </#if>
@@ -709,6 +715,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</#if>
   	});
 
+  	<#if pageType=="all" || pageType=="edit">
+	<#if addList??>
+    <#list addList as add>
+    	<#if add.saveType=="selectvo">
+    	<#if add.isChild>
+   	/** 级联子菜单 */
+   	function getChild(id, ckid){
+   		if(!id){
+   			id = 0;
+   		}
+    	$("#${add.name}").empty();
+   		$("#${add.name}").append("<option value=''>--请选择--</option>");
+   		$.post("${add.voName}", {"${add.parentName}.id":id}, function(d){
+   			$.each(d.data,function(i, item){
+   				if(ckid && item.id == ckid){
+   					$("#${add.name}").append("<option value='"+item.id+"' selected>"+item.${add.voFieldName}+"</option>");
+        			}else{
+        				$("#${add.name}").append("<option value='"+item.id+"'>"+item.${add.voFieldName}+"</option>");
+        			}
+   		  	});
+   	    },"json");
+   	}
+		</#if>
+    	</#if>
+    </#list>
+    </#if>
+    </#if>
+  	
   	<#if pageType=="all" || pageType=="list">
   	<#if addList??>
   	<#list addList as add>
@@ -811,11 +845,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				}
 						<#elseif add.typeName?index_of(".entity")!=-1>
 					if(d.${add.name } || d.${add.name }>-1){
-	  					$("#${add.name }").val(d.${add.name }.id);
+						<#if add.isChild>
+						getChild(d.${add.parentName }.id, d.${add.name }.id);
+						<#else>
+						$("#${add.name }").val(d.${add.name }.id);
+						</#if>
 	  				}
 	                	<#else>
 					if(d.${add.name } || d.${add.name }>-1){
-	  					$("#${add.name }").val(d.${add.name });
+						$("#${add.name }").val(d.${add.name });
 	  				}
 	                	</#if>
 	                </#list>

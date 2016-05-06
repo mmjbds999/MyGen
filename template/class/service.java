@@ -59,7 +59,7 @@ public class ${classNameB}Service extends BaseServcie<${classNameB}>{
 	 * @return
 	 */
 	public JSONObject findByPO(${classNameB} ${className}){
-		JSONObject jo = po2Json(${className}, false);
+		JSONObject jo = po2Json(${className}, true);
 		jo = JSONObject.parseObject(jo.toString());
 		if(jo!=null&&jo.size()>0){
 			StringBuffer sql = new StringBuffer();

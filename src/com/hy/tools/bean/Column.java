@@ -46,6 +46,10 @@ public class Column {
 	private String voTableB;//要做查询的voName--如：AppType
 	private String voFieldName;//要做查询的voFieldName
 	private String voFieldNameB;//要做查询的voFieldName-首字母大写的
+	
+	private String parentName;//字段名--子vo--级联查询用
+	private boolean isChild=false;//是否是级联子项
+	
 	private String defaultVal;//默认值
 	private String enumName;//使用的枚举的Name
 	private Boolean isHidden=false;
@@ -54,6 +58,18 @@ public class Column {
 	/** 查看详情相关 */
 	private String viweType;//保存页面展示类型
 	
+	public boolean getIsChild() {
+		return isChild;
+	}
+	public void setIsChild(boolean isChild) {
+		this.isChild = isChild;
+	}
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 	public String getName() {
 		return name;
 	}

@@ -36,8 +36,12 @@ public @interface AListObj {
 	
 	//----------下拉关联数据指向-----------
 	
-	public abstract Class<?> selectVo() default Object.class;
+	public abstract Class<?> selectVo() default Object.class;//下拉数据源VO
 	
-	public abstract String selectVoName() default "name";
+	public abstract String selectVoName() default "name";//下拉展示字段
+	
+	public abstract boolean isChild() default false;//是否子项
+	
+	public abstract String parentName() default "";//级联的父级字段
 	
 }

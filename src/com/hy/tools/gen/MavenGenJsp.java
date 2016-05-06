@@ -340,6 +340,12 @@ public class MavenGenJsp {
 				column.setVoTableB(StringUtil.upFirstChar(voName));
 				column.setVoName(voName+"/all.do");
 				column.setVoFieldNameB(StringUtil.upFirstChar(field.getAnnotation(AListObj.class).selectVoName()));
+			
+				//级联相关的
+				if(field.getAnnotation(AListObj.class).isChild()){
+					column.setParentName(field.getAnnotation(AListObj.class).parentName());
+					column.setVoName(voName+"/query.do");
+				}
 			}
 
 			//使用枚举的数据列展示
