@@ -69,6 +69,13 @@ public class ${classNameB}Service extends BaseServcie<${classNameB}>{
 					if(jo.get(key) instanceof String){
 						sql.append("and ").append(key).append(" like ? ");
 						params.add(jo.get(key)+"%");
+					}else if(jo.get(key) instanceof JSONObject){
+						JSONObject json = (JSONObject)jo.get(key);
+						sql.append("and ").append(key).append(".id=? ");
+						params.add(json.get("id"));
+					}else if(jo.get(key) instanceof Integer && jo.getInteger(key)==-1){
+						sql.append("and ").append(key).append(" is null ");
+						params.add(jo.get(key));
 					}else{
 						sql.append("and ").append(key).append("=? ");
 						params.add(jo.get(key));
