@@ -31,7 +31,6 @@ import com.linzi.framework.web.PageDateRangeForm;
  * </pre>
  * 
  * @author 黄云
- * ${nowDate}
  */
 public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 

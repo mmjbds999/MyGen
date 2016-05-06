@@ -24,7 +24,6 @@ import ${packageName}.forms.${classNameB}Form;
  * </pre>
  * 
  * @author 黄云
- * ${nowDate}
  */
 @Service
 @Transactional

@@ -365,6 +365,8 @@ public class GenJsp {
 			}
 
 			column.setVoFieldName(field.getAnnotation(AListObj.class).selectVoName());
+			column.setIsChild(field.getAnnotation(AListObj.class).isChild());
+			column.setIsParent(field.getAnnotation(AListObj.class).isParent());
 			//需要关联表展现数据选项的东东
 			if(field.getAnnotation(AListObj.class).cType()==SaveInputType.SELECTVO
 					|| field.getAnnotation(AListObj.class).cType()==SaveInputType.CHECKBOXVO){

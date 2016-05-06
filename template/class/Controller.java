@@ -48,7 +48,6 @@ import com.linzi.framework.utils.EncryptUtil;
  * </pre>
  * 
  * @author 黄云
- * ${nowDate}
  */
 @Controller
 @RequestMapping("/${pageName}")

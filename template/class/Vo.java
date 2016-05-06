@@ -76,7 +76,6 @@ import ${packageName}.entity.${vo.voName};
  * </pre>
  * 
  * @author 黄云
- * ${nowDate}
  */
 <#if voList??>
 <#list voList as vo>

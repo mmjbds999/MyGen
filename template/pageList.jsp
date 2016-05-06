@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        		<select class="form-control valid" id="${add.name }" name="${add.name }.id"
 	                                                        aria-required="true" aria-invalid="false"
 	                                                        aria-describedby="appType-error appType-error appType-error appType-error appType-error appType-error">
-		                                                <option value="">--请选择--</option>
+		                                                <option value="<#if add.isParent>0</#if>">--请选择--</option>
 	                                                </select>
 	                                            </div>
 	                                            <#elseif add.saveType=="searchvo">
@@ -636,8 +636,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		getChild($(this).val());
 	    });
 	    	<#else>
-    	$.post("${add.voName}", {}, function(d){
-    		$.each(d,function(i, item){
+    	$.post("${add.voName}", {<#if add.isParent>"${add.name}":0</#if>}, function(d){
+    		$.each(d.data,function(i, item){
     			$("#${add.name}").append("<option value='"+item.id+"'>"+item.${add.voFieldName}+"</option>");
    		  	});
 	    },"json");
@@ -652,7 +652,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	/** 根据vo填充checkbox选项 */
 	    $.post("${add.voName}", {}, function(d){
     		var html = "";
-    		$.each(d,function(i, item){
+    		$.each(d.data,function(i, item){
     			html += '<label for="${add.name }-'+item.id+' " class="checkbox-inline">'+
 			                    '<input type="checkbox" id="${add.name }-'+item.id+'" name="${add.name }"'+
 			                        'value="'+item.id+'"> '+item.${add.voFieldName}+

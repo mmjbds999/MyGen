@@ -42,6 +42,8 @@ public @interface AListObj {
 	
 	public abstract boolean isChild() default false;//是否子项
 	
+	public abstract boolean isParent() default false;//是否本表父类
+	
 	public abstract String parentName() default "";//级联的父级字段
 	
 }

@@ -50,6 +50,8 @@ public class Column {
 	private String parentName;//字段名--子vo--级联查询用
 	private boolean isChild=false;//是否是级联子项
 	
+	private boolean isParent=false;//是否是本表Parent
+	
 	private String defaultVal;//默认值
 	private String enumName;//使用的枚举的Name
 	private Boolean isHidden=false;
@@ -58,6 +60,12 @@ public class Column {
 	/** 查看详情相关 */
 	private String viweType;//保存页面展示类型
 	
+	public boolean getIsParent() {
+		return isParent;
+	}
+	public void setIsParent(boolean isParent) {
+		this.isParent = isParent;
+	}
 	public boolean getIsChild() {
 		return isChild;
 	}
