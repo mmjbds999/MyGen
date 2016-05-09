@@ -29,6 +29,9 @@ import ${packageName}.enums.${s.enumName};
 import ${packageName}.entity.${s.voTableB};
 import ${packageName}.service.${s.voTableB}Service;
 	</#if>
+    <#if s.isHidden && s.typeStr=="Date">
+import java.util.Date;
+    </#if>
 </#list>
 </#if>
 
@@ -60,7 +63,7 @@ public class ${cPage}Controller extends BaseAction {
     
     <#if addList??>
 	<#list addList as s>
-		<#if (s.saveType=="selectvo" || s.saveType=="checkboxvo")>
+		<#if (s.saveType=="selectvo" || s.saveType=="checkboxvo") && s.voTable!=pageName>
 	@Autowired
 	private ${s.voTableB}Service ${s.voTable}Service;
 		</#if>
@@ -76,6 +79,13 @@ public class ${cPage}Controller extends BaseAction {
     	ModelAndView mav = new ModelAndView("${pageName}");
         PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
         page.setActionUrl("${pageName}/list.do");
+        <#if addList??>
+    	<#list addList as s>
+        <#if s.isSetDefault>
+        mav.addObject("${s.name}_id", getUser().get${s.nameB}()==null?"":getUser().get${s.nameB}());
+        </#if>
+        </#list>
+    	</#if>
         mav.addObject("parentName", parentName);
         mav.addObject("parentComm", ChineseUtil.toChinese(parentComm));
         mav.addObject("page", page);
@@ -203,6 +213,8 @@ public class ${cPage}Controller extends BaseAction {
         		param.set${s.nameB}(EncryptUtil.md5(param.get${s.nameB}()));
         	}
         		</#if>
+    	}else{
+    		param.set${s.nameB}(EncryptUtil.md5(param.get${s.nameB}()));
     	}
     	<#if s.saveType=="img" || s.saveType=="file">
     	param.set${s.nameB}(${s.name}_path);
@@ -213,6 +225,19 @@ public class ${cPage}Controller extends BaseAction {
         	${s.nameB} ${s.name} = ${s.name}Service.findByIdPO(param.get${s.nameB}().getId());
     		param.set${s.nameB}(${s.name});
     	}
+        </#if>
+        </#list>
+        </#if>
+
+        <#if addList??>
+		<#list addList as s>
+        <#if s.typeName?index_of(".entity.")!=-1>
+        if(param.get${s.nameB}()==null || param.get${s.nameB}().getId()==null){
+    		param.set${s.nameB}(null);
+    	}
+        </#if>
+        <#if s.isHidden && s.typeStr=="Date">
+		param.set${s.nameB}(new Date());
         </#if>
         </#list>
         </#if>

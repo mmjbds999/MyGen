@@ -84,7 +84,7 @@ public class MavenGenService {
 		for (Method method : methods) {
 			if(method.isAnnotationPresent(ManyToOne.class)){
 				String joinmodel = method.getReturnType().getSimpleName();
-				String sql = " left join "+className+"."+StringUtil.lowFirstChar(joinmodel)+" as "+StringUtil.lowFirstChar(joinmodel)+" ";
+				String sql = " left join "+className+"."+StringUtil.lowFirstChar(joinmodel)+" as bm_"+StringUtil.lowFirstChar(joinmodel)+" ";
 				sqlList.add(sql);
 			}
 		}

@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        <#if addList??>
 	                                        <#list addList as add>
 	                                        	<#if add.isHidden>
-                                        	<input type="hidden" id="${add.name }" name="${add.name }" value="${add.defaultVal }"/>
+                                        	<input type="hidden" id="${add.name }" name="${add.name }<#if add.defaultVal?index_of('${')!=-1>.id</#if>" value="${add.defaultVal }"/>
 	                                        	</#if>
 	                                        </#list>
 	                                        </#if>
@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        		<select class="form-control valid" id="${add.name }" name="${add.name }.id"
 	                                                        aria-required="true" aria-invalid="false"
 	                                                        aria-describedby="appType-error appType-error appType-error appType-error appType-error appType-error">
-		                                                <option value="<#if add.isParent>0</#if>">--请选择--</option>
+		                                                <option value="">--请选择--</option>
 	                                                </select>
 	                                            </div>
 	                                            <#elseif add.saveType=="searchvo">
@@ -314,8 +314,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																<tr>
 																	<#if showList??>
 																	<#list showList as clm>
-																	<#if (clm.saveType=="select" || clm.saveType=="radio" || clm.saveType=="selectvo" || clm.saveType=="checkboxvo")>
+																	<#if (clm.saveType=="select" || clm.saveType=="radio")>
 																	<td>@@@var.${clm.name }_vo@@</td>
+																	<#elseif (clm.saveType=="selectvo" || clm.saveType=="checkboxvo")>
+																	<td>@@@var.bm_${clm.name }.${clm.voFieldName }@@</td>
 																	<#elseif clm.typeName?index_of(".entity")!=-1>
 																	<td>@@@var.${clm.name }.${clm.voFieldName }@@</td>
 																	<#else>
@@ -636,7 +638,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		getChild($(this).val());
 	    });
 	    	<#else>
-    	$.post("${add.voName}", {<#if add.isParent>"${add.name}":0</#if>}, function(d){
+    	$.post("${add.voName}", {<#if add.isParent>"${add.name}.id":-1</#if>}, function(d){
     		$.each(d.data,function(i, item){
     			$("#${add.name}").append("<option value='"+item.id+"'>"+item.${add.voFieldName}+"</option>");
    		  	});
