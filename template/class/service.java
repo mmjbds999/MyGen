@@ -32,7 +32,7 @@ public class ${classNameB}Service extends BaseServcie<${classNameB}>{
 	private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(${classNameB}Service.class);
 	
 	@Autowired
-	private ${classNameB}Dao ${className}Dao;
+	protected ${classNameB}Dao ${className}Dao;
 	
 	/**
 	 * 分页查询--所有many-to-one的关联表都干出来

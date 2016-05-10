@@ -43,6 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         if(null==admin&&!url.contains("loginAdmin/index.do")&&!url.contains("loginAdmin/login.do")){
             try {
                 response.sendRedirect("../loginAdmin/index.do");
+                return false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
