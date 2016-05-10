@@ -113,7 +113,7 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	<#if addList??>
 	<#list addList as add>
 	<#if add.type?contains(".entity.")>
-	@ABuildWhereFieldName(name="${add.name}.id")
+	@ABuildWhereFieldName(name="bm_${add.name}.id")
 	public Integer get${add.nameB}_id() {
 		return ${add.name}_id;
 	}

@@ -71,11 +71,13 @@ public class ${classNameB}Service extends BaseServcie<${classNameB}>{
 						params.add(jo.get(key)+"%");
 					}else if(jo.get(key) instanceof JSONObject){
 						JSONObject json = (JSONObject)jo.get(key);
-						sql.append("and ").append(key).append(".id=? ");
-						params.add(json.get("id"));
-					}else if(jo.get(key) instanceof Integer && jo.getInteger(key)==-1){
-						sql.append("and ").append(key).append(" is null ");
-						params.add(jo.get(key));
+						if(json.get("id")==null || json.getInteger("id")==-1){
+							sql.append("and ${className}.").append(key).append(" is null ");
+							//TODO 类似这种情况的一般不用is null或is not null 而是加字段处理，否则会进行全表检索，导致索引失效，降低效率，这里是为了方便，所以不要计较了，哈哈哈！
+						}else{
+							sql.append("and ").append(key).append(".id=? ");
+							params.add(json.get("id"));
+						}
 					}else{
 						sql.append("and ").append(key).append("=? ");
 						params.add(jo.get(key));
