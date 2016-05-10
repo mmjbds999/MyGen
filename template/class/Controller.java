@@ -80,10 +80,11 @@ public class ${cPage}Controller extends BaseAction {
     	<#if addList??>
     	<#list addList as s>
         <#if s.isSetDefault>
-        if(getUser().get${s.nameB}()!=null){
-    		form.set${s.nameB}_id(1);
+        if(getUser().get${s.nameB}()!=null&&getUser().get${s.nameB}().getId()!=null){
+    		form.set${s.nameB}_id(getUser().get${s.nameB}().getId());
     		mav.addObject("${s.name}_id", getUser().get${s.nameB}().getId());
     	}else{
+    		form.set${s.nameB}_id(-1);
     		mav.addObject("${s.name}_id", "");
     	}
         </#if>
