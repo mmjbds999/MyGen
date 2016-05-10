@@ -77,15 +77,20 @@ public class ${cPage}Controller extends BaseAction {
     public ModelAndView list(String parentName, String parentComm) {
     	${cPage}Form form = BinderUtil.bindForm(request, ${cPage}Form.class, true);
     	ModelAndView mav = new ModelAndView("${pageName}");
-        PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
-        page.setActionUrl("${pageName}/list.do");
-        <#if addList??>
+    	<#if addList??>
     	<#list addList as s>
         <#if s.isSetDefault>
-        mav.addObject("${s.name}_id", getUser().get${s.nameB}()==null?"":getUser().get${s.nameB}());
+        if(getUser().get${s.nameB}()!=null){
+    		form.set${s.nameB}_id(1);
+    		mav.addObject("${s.name}_id", getUser().get${s.nameB}().getId());
+    	}else{
+    		mav.addObject("${s.name}_id", "");
+    	}
         </#if>
         </#list>
     	</#if>
+        PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
+        page.setActionUrl("${pageName}/list.do");
         mav.addObject("parentName", parentName);
         mav.addObject("parentComm", ChineseUtil.toChinese(parentComm));
         mav.addObject("page", page);
