@@ -317,7 +317,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	<#if (clm.saveType=="select" || clm.saveType=="radio")>
 																	<td>@@@var.${clm.name }_vo@@</td>
 																	<#elseif (clm.saveType=="selectvo" || clm.saveType=="checkboxvo")>
-																	<td>@@@var.bm_${clm.name }.${clm.voFieldName }@@</td>
+																	<td>@@@var.${clm.name }.${clm.voFieldName }@@</td>
 																	<#elseif clm.typeName?index_of(".entity")!=-1>
 																	<td>@@@var.${clm.name }.${clm.voFieldName }@@</td>
 																	<#else>
