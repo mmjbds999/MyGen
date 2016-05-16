@@ -91,7 +91,7 @@ public class ${bVisitPage}Controller extends BaseAction {
         </#list>
     	</#if>
         PageQueryResult<${cPage}> page = ${pageName}Service.findByPage(form);
-        page.setActionUrl("${pageName}/list.do");
+        page.setActionUrl("${visitPage}/list.do");
         mav.addObject("parentName", parentName);
         mav.addObject("parentComm", ChineseUtil.toChinese(parentComm));
         mav.addObject("page", page);
