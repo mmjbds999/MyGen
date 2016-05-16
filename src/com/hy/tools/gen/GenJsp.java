@@ -114,12 +114,12 @@ public class GenJsp {
 			result = result.replace("@@@", "${").replace("@@", "}");
 			if(genPath!=null && jspPath!=null){
 				if(genToTruePath){
-					StringUtil.write(genPath+jspPath+pageName+".jsp", result);
+					StringUtil.write(genPath+jspPath+visitPage+".jsp", result);
 				}else{
-					StringUtil.write(genPath+jspPath+GenFilePath.pageFolder+pageName+".jsp", result);
+					StringUtil.write(genPath+jspPath+GenFilePath.pageFolder+visitPage+".jsp", result);
 				}
 			}else{
-				StringUtil.write(System.getProperty("user.dir")+GenFilePath.pageFolder+pageName+".jsp", result);
+				StringUtil.write(System.getProperty("user.dir")+GenFilePath.pageFolder+visitPage+".jsp", result);
 			}
 		}
 	}
