@@ -23,6 +23,8 @@ public @interface AModelName {
 	
 	public abstract String pageName();
 	
+	public abstract String visitPage() default "";
+	
 	public abstract PageType pageType() default PageType.ALL;
 	
 	public abstract boolean useParam() default false;

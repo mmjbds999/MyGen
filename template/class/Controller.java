@@ -53,8 +53,8 @@ import com.linzi.framework.utils.EncryptUtil;
  * @author 黄云
  */
 @Controller
-@RequestMapping("/${pageName}")
-public class ${cPage}Controller extends BaseAction {
+@RequestMapping("/${visitPage}")
+public class ${bVisitPage}Controller extends BaseAction {
 
     private static Logger logger = Logger.getLogger(${cPage}Controller.class);
     
@@ -278,7 +278,7 @@ public class ${cPage}Controller extends BaseAction {
     @RequestMapping("/save.do")
     public String save(${cPage} param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, MultipartFile ${s.name}_file</#if></#list></#if>, HttpServletResponse resp) {
     	savePo(param<#if addList??><#list addList as s><#if s.saveType=="img" || s.saveType=="file">, ${s.name}_file</#if></#list></#if>, resp);
-        return "redirect:/${pageName}/list.do";
+        return "redirect:/${visitPage}/list.do";
     }
     
     /**

@@ -62,9 +62,12 @@ public class GenJsp {
 		String modelName = "";
 		String pageName = "x";
 		String pageType = "";
+		String visitPage = "";
 		if(clazz.isAnnotationPresent(AModelName.class)){
 			modelName = clazz.getAnnotation(AModelName.class).modelName();
 			pageName = clazz.getAnnotation(AModelName.class).pageName();
+			visitPage = clazz.getAnnotation(AModelName.class).visitPage();
+			visitPage = visitPage.equals("")?pageName:visitPage;
 			pageType = clazz.getAnnotation(AModelName.class).pageType().getName();
 			
 			if(pageName.equals("admin")&&hasField(clazz,"account")&&hasField(clazz,"password")){
@@ -104,7 +107,7 @@ public class GenJsp {
 			data.put("addList", addList);
 			data.put("showList", showList);
 
-			genClass(pageName, showList, addList);//生成Action
+			genClass(pageName, visitPage, showList, addList);//生成Action
 			genForms(pageName, searchList, addList);//生成Form
 
 			String result = FreemarkerUtil.getTemplate(template, data);
@@ -133,12 +136,14 @@ public class GenJsp {
 	 * 生成Action
 	 * @param pageName
 	 */
-	private static void genClass(String pageName, List<Column> showList, List<Column> addList){
+	private static void genClass(String pageName,String visitPage, List<Column> showList, List<Column> addList){
 		String template = StringUtil.readFile(System.getProperty("user.dir") + TemplatePath.pageListClass);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("pageName", pageName);
 		data.put("showList", showList);
 		data.put("addList", addList);
+		data.put("visitPage", visitPage);
+		data.put("bVisitPage", StringUtil.upFirstChar(visitPage));
 		String packageName = classPath.replace("\\", ".");
 		packageName = packageName.substring(packageName.indexOf("com."));
 		packageName = packageName.substring(0,packageName.length()-1);
@@ -153,12 +158,12 @@ public class GenJsp {
 		String result = FreemarkerUtil.getTemplate(template, data);
 		if(genPath!=null && classPath!=null){
 			if(genToTruePath){
-				StringUtil.write(genPath+classPath+"controller\\"+cPage+"Controller.java", result);
+				StringUtil.write(genPath+classPath+"controller\\"+StringUtil.upFirstChar(visitPage)+"Controller.java", result);
 			}else{
-				StringUtil.write(genPath+jspPath+GenFilePath.classFolder+cPage+"Controller.java", result);
+				StringUtil.write(genPath+jspPath+GenFilePath.classFolder+StringUtil.upFirstChar(visitPage)+"Controller.java", result);
 			}
 		}else{
-			StringUtil.write(System.getProperty("user.dir")+GenFilePath.classFolder+pageName+"Controller.java", result);
+			StringUtil.write(System.getProperty("user.dir")+GenFilePath.classFolder+StringUtil.upFirstChar(visitPage)+"Controller.java", result);
 		}
 	}
 
