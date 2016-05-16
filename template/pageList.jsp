@@ -380,7 +380,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- END QUICK SIDEBAR -->
     </div>
 
-
+	<#if pageType!="edit">
 	<!-- Begin 详情-->
 	<div id="modal-adInfo-detail" class="modal fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
@@ -424,6 +424,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<!-- END 详情modal-->
+	</#if>
 	<#if pageType=="all" || pageType=="list">
 	<!-- BEGIN 删除modal -->
 	<div id="modal-app-delete" class="modal hny-delete-modal fade"
