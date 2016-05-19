@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="showJson"></div>
 
 	<!-- 控制left.jsp活动元素 -->
-	<input type="hidden" id="leftNav" value="li-${pageName}">
+	<input type="hidden" id="leftNav" value="li-${visitPage}">
 
     <div class="page-container">
     	<jsp:include page="includes/left.jsp"/>
@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="@@@parentName@@/list.do">@@@parentComm @@</a>
 							</c:if>
 							<i class="fa fa-angle-right"></i>
-							<a href="${pageName}/list.do">${modName }</a>
+							<a href="${visitPage}/list.do">${modName }</a>
 						</li>
 					</ul>
 					<div class="page-toolbar">
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<#if pageType=="all" || pageType=="edit">
 									<!-- BEGIN 新建应用-->
 									<div class="tab-pane fade<#if pageType=="edit"> in active</#if>" id="newApp">
-										<form action="${pageName}/save.do" method="post" id="form" enctype="multipart/form-data"
+										<form action="${visitPage}/save.do" method="post" id="form" enctype="multipart/form-data"
 	                                          class="form-horizontal form-bordered account-detail-list"
 	                                          novalidate="novalidate">
 	                                        <input type="hidden" id="h_id" name="id"/>
@@ -234,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<#if pageType=="all" || pageType=="list" || pageType=="list_no">
 									<!-- BEGIN 列表管理-->
 									<div class="tab-pane fade in active" id="listApp">
-										<form action="${pageName }/list.do" method="post" id="listSearchForm">
+										<form action="${visitPage}/list.do" method="post" id="listSearchForm">
 											<div class="row">
 										<#if searchList??>
 										<#list searchList as search>
@@ -245,6 +245,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                                <#list search.codes as code>
 	                                                <option value="${code }">${search.names[code_index] }</option>
 	                                                </#list>
+	                                            </select>
+	                                        </div>
+	                                        <#elseif search.showType == "selectvo">
+											<div class="col-xs-2">
+	                                            <select id="${search.name }_search" name="${search.name }_id" class="form-control" size="1">
+	                                                <option value="-1">所有(${search.comment })</option>
 	                                            </select>
 	                                        </div>
 											<#elseif search.showType == "date" || search.showType == "datetime">
@@ -309,8 +315,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</tr>
 													</thead>
 													<tbody>
-														<c:if test="@@@${pageName }List!=null@@">
-															<c:forEach items="@@@${pageName }List@@" var="var" >
+														<c:if test="@@@${visitPage}List!=null@@">
+															<c:forEach items="@@@${visitPage}List@@" var="var" >
 																<tr>
 																	<#if showList??>
 																	<#list showList as clm>
@@ -344,7 +350,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					                                                    	<#if addList??>
 																		  	<#list addList as add>
 																				<#if add.userbtn?? && add.userbtn>
-						                                                    <a href="${add.voName }/list.do?${pageName}_id=@@@var.id@@&parentName=${pageName}&parentComm=${modName }" class="btn btn-sm btn-primary" >${add.qname}</a>
+						                                                    <a href="${add.voName }/list.do?${visitPage}_id=@@@var.id@@&parentName=${visitPage}&parentComm=${modName }" class="btn btn-sm btn-primary" >${add.qname}</a>
 					                                                    		</#if>
 					                                                    	</#list>
 					                                                    	</#if>
@@ -353,7 +359,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																</tr>
 															</c:forEach>
 														</c:if>
-														<c:if test="@@@${pageName }List==null@@">
+														<c:if test="@@@${visitPage}List==null@@">
 															<tr>
 																<td colspan="${showList?size + 1 }">暂无数据</td>
 															</tr>
@@ -423,8 +429,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-	<!-- END 详情modal-->
 	</#if>
+	<!-- END 详情modal-->
 	<#if pageType=="all" || pageType=="list">
 	<!-- BEGIN 删除modal -->
 	<div id="modal-app-delete" class="modal hny-delete-modal fade"
@@ -444,7 +450,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary"
 						data-dismiss="modal" id="delete"
-						value="" page="${pageName }">确定</button>
+						value="" page="${visitPage}">确定</button>
 					<button type="button" class="btn btn-default"
 						data-dismiss="modal">取消</button>
 				</div>
@@ -547,7 +553,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</#if>
   		
   		<#if pageType=="edit">
-  		$.post("${pageName }/all.do", {}, function(d) {
+  		$.post("${visitPage}/all.do", {}, function(d) {
   			if(d.length>0){
   				getEditData(d[0].id);
   			}
@@ -559,7 +565,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		 * 列表查询重置
   		 */
   		$("#resetbtn").click(function(){
-  			window.location.href = "${pageName }/list.do?reset=1";
+  			window.location.href = "${visitPage}/list.do?reset=1";
   		});
   		</#if>
   		
@@ -602,6 +608,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(${search.name}_e){
 			$("#${search.name}_e").val(FormatDate(${search.name}_e));
 		}
+		</#if>
+		<#if search.showType == "selectvo">
+		$.post("${search.voName}", {}, function(d){
+    		$.each(d.data,function(i, item){
+    			var check = "";
+    			if(@@@form.img_type_id@@==item.id){
+    				check = "selected";
+    			}
+    			$("#${search.name}_search").append("<option value='"+item.id+"' "+check+">"+item.${search.voFieldName}+"</option>");
+   		  	});
+	    },"json");
 		</#if>
 		</#list>
 	    </#if>
@@ -752,7 +769,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<#if add.optionName!="">
   	/** ${add.optionName} **/
   	function ${add.name}(id, value){
-  		$.post("${pageName }/changeStatus.do", {"id":id, "option":"${add.name}", "${add.name}":value}, function(d) {
+  		$.post("${visitPage}/changeStatus.do", {"id":id, "option":"${add.name}", "${add.name}":value}, function(d) {
   			if (d.code=="200") {
   				var status = value==1?"取消":"";
   				alert(status+"${add.optionName}成功！");
@@ -770,7 +787,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <#if pageType=="all" || pageType=="list" || pageType=="list_no">
   	/** 查看--暂时用的是添加的项来迭代，有需要的时候再换 */
   	function showView(id){
-  		var url = "${pageName }/view.do";
+  		var url = "${visitPage}/view.do";
   		$.post(url, {"id":id}, function(d) {
   				<#if addList??>
                 <#list addList as add>
@@ -786,7 +803,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<#elseif (add.saveType=="img" || add.saveType=="file")>
 				if(d.${add.name } || d.${add.name }>-1){
   					$("#${add.name }_view").src(d.${add.name });
-  				}
+  				}else{
+					$("#icon_view").attr("src", "");
+				}
 					<#elseif add.typeName?index_of(".entity")!=-1>
 				if(d.${add.name } || d.${add.name }>-1){
   					$("#${add.name }_view").html(d.${add.name }.${add.voFieldName});
@@ -805,7 +824,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<#if pageType=="all" || pageType=="edit">
 	  	/** 编辑--内容填充 */
 	  	function getEditData(id){
-	  		var url = "${pageName }/view.do";
+	  		var url = "${visitPage}/view.do";
 	  		$.post(url, {"id":id}, function(d) {
 	  				$("#form")[0].reset();
 	  				$("#h_id").val(d.id);
@@ -836,6 +855,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						var fName = d.${add.name }.substring(d.${add.name }.lastIndexOf("/")+1);
 						$("#${add.name }").parent().find(".dropify-filename-inner").html(fName);
 						$("#${add.name }").parent().find(".dropify-render").html("<img src='"+d.${add.name }+"'>");
+					}else{
+						$("#icon").parent().find(".dropify-preview").attr("style","display:none;");
 					}
 						<#elseif add.saveType=="pwd">
 					if(d.${add.name } || d.${add.name }>-1){

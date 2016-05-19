@@ -76,7 +76,7 @@ public class ${bVisitPage}Controller extends BaseAction {
     @RequestMapping("/list.do")
     public ModelAndView list(String parentName, String parentComm) {
     	${cPage}Form form = BinderUtil.bindForm(request, ${cPage}Form.class, true);
-    	ModelAndView mav = new ModelAndView("${pageName}");
+    	ModelAndView mav = new ModelAndView("${visitPage}");
     	<#if addList??>
     	<#list addList as s>
         <#if s.isSetDefault>

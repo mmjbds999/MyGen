@@ -13,8 +13,14 @@ import com.linzi.framework.annotation.ABuildWhereTimeField;
 </#if>
 </#list>
 <#list searchList as s>
-<#if s.typeName?index_of("com.linzi.app.appserver.rmi.enums")!=-1>
-import com.linzi.app.appserver.rmi.enums.${s.typeStr};
+<#if s.typeName?index_of("${packageName}.enums")!=-1>
+import ${packageName}.enums.${s.typeStr};
+<#break>
+</#if>
+</#list>
+<#list searchList as s>
+<#if s.typeName?index_of(".entity.")!=-1 && s.voField=="">
+import ${packageName}.entity.${s.typeStr};
 <#break>
 </#if>
 </#list>
@@ -82,7 +88,7 @@ public class ${cPage}Form extends PageDateRangeForm implements Serializable{
 	}
 	<#elseif s.voField!="">
 	@ABuildWhereOptStr(optStr="like")
-	@ABuildWhereFieldName(name="${s.name}.${s.voField}")
+	@ABuildWhereFieldName(name="bm_${s.name}.${s.voField}")
 	public String get${s.nameB}_${s.voField}() {
 		return ${s.name}_${s.voField};
 	}

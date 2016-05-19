@@ -14,6 +14,7 @@ public enum SearchInputType {
 	SELECT(1,"select"),
 	DATE(2,"date"),
 	TIME(3,"datetime"),
+	SELECTVO(4,"selectvo"),
 	
 	UNKNOW(-100,"unknow");
 	

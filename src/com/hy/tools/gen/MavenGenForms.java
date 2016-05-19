@@ -261,6 +261,22 @@ public class MavenGenForms {
 		packageName = packageName.substring(packageName.indexOf("com."));
 		packageName = packageName.substring(0,packageName.length()-1);
 		data.put("packageName", packageName);
+		
+		if(searchList!=null && searchList.size()>0){
+			List<Column> searchListRemove = new ArrayList<Column>();
+			List<Column> addListRemove = new ArrayList<Column>();
+			for (Column column : searchList) {
+				if(column.getTypeName().contains(".entity.")){
+					if(column.getShowType().equals("selectvo")){
+						searchListRemove.add(column);
+					}else{
+						addListRemove.add(column);
+					}
+				}
+			}
+			addList.removeAll(addListRemove);
+			searchList.removeAll(searchListRemove);
+		}
 		data.put("searchList", searchList);
 		data.put("addList", addList);
 		String cPage = StringUtil.upFirstChar(pageName);

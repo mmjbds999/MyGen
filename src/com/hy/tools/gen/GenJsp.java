@@ -78,6 +78,7 @@ public class GenJsp {
 			data.put("modName", modelName);
 			data.put("pageName", pageName);
 			data.put("pageType", pageType);
+			data.put("visitPage", visitPage);
 
 			Field[] fields = clazz.getDeclaredFields();
 			List<Column> searchList = new ArrayList<Column>();
