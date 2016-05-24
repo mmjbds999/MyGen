@@ -99,7 +99,7 @@ public class ${bVisitPage}Controller extends BaseAction {
 		if (page != null) {
 			mav.addObject("page", page);
 			${cPage}Vo ${pageName}Vo = new ${cPage}Vo();
-			mav.addObject("${pageName}List", setVoList(${pageName}Vo.getORMList(page.getList())));
+			mav.addObject("${visitPage}List", setVoList(${pageName}Vo.getORMList(page.getList())));
 		}
         return mav;
     }
