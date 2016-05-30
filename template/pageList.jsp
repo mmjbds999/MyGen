@@ -613,7 +613,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$.post("${search.voName}", {}, function(d){
     		$.each(d.data,function(i, item){
     			var check = "";
-    			if(@@@form.img_type_id@@==item.id){
+    			if('@@@form.img_type_id@@'==item.id){
     				check = "selected";
     			}
     			$("#${search.name}_search").append("<option value='"+item.id+"' "+check+">"+item.${search.voFieldName}+"</option>");
