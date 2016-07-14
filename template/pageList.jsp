@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                                        	<#elseif add.saveType=="file" || add.saveType=="img">
 	                                        	<div class="col-md-3">
 													<input type="file" id="${add.name }" class="dropify-fr" name="${add.name }_file"
-	                                                data-height="250" data-default-file="" data-max-file-size="200K"/>
+	                                                data-height="250" data-default-file="" data-max-file-size="1024K"/>
 	                                                <!--<span class="help-block">图标大小为60x60(px),格式为png</span>-->
 	                                            </div>
 	                                            <#elseif add.saveType=="pwd">
@@ -583,7 +583,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				'default' : '点击或拖拽文件到这里',
 				'replace' : '点击或拖拽文件到这里来替换文件',
 				'remove' : '移除文件',
-				'error' : '对不起，你上传的文件太大了'
+				'error' : '对不起，你上传的文件太大了，请控制在1M以内'
 			}
 		});
  		</#if>
@@ -613,7 +613,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$.post("${search.voName}", {}, function(d){
     		$.each(d.data,function(i, item){
     			var check = "";
-    			if('@@@form.img_type_id@@'==item.id){
+    			if('@@@form.${search.name}_id@@'==item.id){
     				check = "selected";
     			}
     			$("#${search.name}_search").append("<option value='"+item.id+"' "+check+">"+item.${search.voFieldName}+"</option>");

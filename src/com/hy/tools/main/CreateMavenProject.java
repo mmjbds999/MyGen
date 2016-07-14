@@ -19,24 +19,24 @@ import com.hy.tools.uitl.StringUtil;
  */
 public class CreateMavenProject {
 
-	public static String projectName = "MyProjectTest";//项目名称--maven_artifactId
+	public static String projectName = "ResInvsgt";//项目名称--maven_artifactId
 	
-	public static String projectNameCN = "森林街";//项目名称--中文
+	public static String projectNameCN = "资源量调查系统";//项目名称--中文
 	
-	public static String dbName = "forest_street";//数据库名称
+	public static String dbName = "resource_investigation";//数据库名称
 	
 	//需要连接的数据库服务器地址,本机可以写127.0.0.1
-	public static String dbServerUrl = "127.0.0.1";
+	public static String dbServerUrl = "192.168.100.10";
 	
-	public static String packageName = "com.linzi.forest";//包名称--maven_groupId
+	public static String packageName = "com.linzi.resinvsgt";//包名称--maven_groupId
 	
-	public static String packagePath = "com\\\\linzi\\\\forest";//包路径
+	public static String packagePath = "com\\\\linzi\\\\resinvsgt";//包路径
 	
-	public static String path = "E:\\\\linzi_git_work\\\\";//需要创建项目的文件夹路径
+	public static String path = "H:\\\\JavaSave2015\\\\";//需要创建项目的文件夹路径
 	
-	public static String user = "root";//数据库用户
+	public static String user = "shh";//数据库用户
 	
-	public static String pwd = "root";//数据库密码
+	public static String pwd = "1";//数据库密码
 	
 	public static String maven_version = "1.0-SNAPSHOT";//版本号
 	
@@ -49,7 +49,7 @@ public class CreateMavenProject {
 	
 	public static String author = "linzi";//作者
 	
-	public static String webRoot = "WebContent";//用eclipse的朋友请改成WebContent
+	public static String webRoot = "WebRoot";//用eclipse的朋友请改成WebContent
 	
 	public static boolean hasAdmin = true;//是否有admin表，默认为true
 	
